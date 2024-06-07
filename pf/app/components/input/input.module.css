@@ -1,0 +1,13 @@
+.container {
+    width: 20rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    height: 2rem;
+}
+
+.label {
+    font-size: 1rem;
+}

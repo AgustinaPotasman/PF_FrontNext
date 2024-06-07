@@ -1,0 +1,18 @@
+.nav{
+    display: flex;
+    list-style: none;
+    justify-content: space-around;
+    height: 3rem;
+    align-items: center;
+    background-color: #A01111;
+    font-weight: 500;
+}
+
+.label{
+    
+    color: #fff;
+} 
+.label:hover{
+    color: #f5bfbf
+    
+}
