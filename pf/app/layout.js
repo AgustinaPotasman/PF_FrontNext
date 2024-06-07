@@ -18,7 +18,6 @@ export default function RootLayout({ children }) {
                 <li><Link href="/informacion"  className={styles.label}>Informacion</Link></li>
                 <li><Link href="/" className={styles.label}>Proximo turno</Link></li>
                 <li><Link href="/" className={styles.label}>Perfil</Link></li>
-                <li><Link href="/" className={styles.label}>Mensajes</Link></li>
             </nav>
            {children}
       </body>
