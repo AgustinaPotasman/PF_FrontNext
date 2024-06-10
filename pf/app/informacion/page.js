@@ -12,17 +12,17 @@ export default function Home() {
   const [openAlert, setOpenAlert] = useState(false);
 
   const handleOpenAlert = () => {
-    console.log('Opening modal');  // Debug log
+    console.log('Abriendo modal');  
     setOpenAlert(true);
   };
 
   const handleCloseAlert = () => {
-    console.log('Closing modal');  // Debug log
+    console.log('Cerrando modal'); 
     setOpenAlert(false);
   };
 
   return (
-    <main>
+    <main className={styles.container}>
       <Titulo params="Informacion" />
       <formDesplegable>
         {formDesplegable({})}
@@ -30,11 +30,10 @@ export default function Home() {
       <Input iType="text" iPlaceholder="Ingrese sus sintomas" />
       <Boton sendText="siguiente" onClick={handleOpenAlert} />
       {openAlert && (
-        <Modal onClose={handleCloseAlert}>
-          <div>Contenido del modal</div>
-          <button onClick={handleCloseAlert}>Cerrar</button>
-        </Modal>
-      )}
+      <Modal onClose={handleCloseAlert} />
+    )}
     </main>
   );
 }
+
+

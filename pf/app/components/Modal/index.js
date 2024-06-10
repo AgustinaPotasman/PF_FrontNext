@@ -7,10 +7,10 @@ const Modal = ({ onClose, children }) => {
   return (
     <div className={styles.modalBackdrop}>
     <div className={styles.modalContent}>
-      <div class="modal-header">
-        <h5 class="modal-title">¿Seguro que quieres confriamr el turno?</h5>
+      <div className={styles.modalHeader}>
+        <h5 className={styles.modalTitle}>¿Seguro que quieres confriamr el turno?</h5>
       </div>
-      <div class="modal-footer">
+      <div className={styles.modalFooter}>
       <Boton sendText= "Confirmar" onClick={onClose}/>
       <Boton sendText="Rechazar" onClick={onClose}/>
       </div>
