@@ -5,9 +5,9 @@ import React, {useState} from "react"
 import Titulo from "../components/Titulo";
 import Input from "../components/Input";
 import styles from "./page.module.css";
-import FormDesplegable from "../components/FormDesplegable";
+import formDesplegable from "../components/FormDesplegable";
 import Boton from "../components/Boton";
-import Formulario from "../components/AlertConf";
+import Formulario from "../components/Modal";
 
 export default function Home() {
 
@@ -22,9 +22,8 @@ setOpenAlert(true)
     <main>
         <Titulo params="Informacion"></Titulo>
         <Input iType="text" iPlaceholder="Ingrese sus sintomas"></Input>
-        <FormDesplegable/>
-        {openAlert && <Formulario/>}
-        <Boton sendText={"Siguiente"} onClick={() => handleOpenAlert}/>
+        <formDesplegab></formDesplegab>
+        <boton sendText={"Siguiente"}></boton>
     </main>
   );
 }
