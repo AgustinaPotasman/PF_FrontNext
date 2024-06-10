@@ -22,8 +22,10 @@ setOpenAlert(true)
     <main>
         <Titulo params="Informacion"></Titulo>
         <Input iType="text" iPlaceholder="Ingrese sus sintomas"></Input>
-        <formDesplegab></formDesplegab>
-        <boton sendText={"Siguiente"}></boton>
+        <formDesplegable>
+          {formDesplegable({})}
+        </formDesplegable>
+        <Boton sendText={"siguiente"}/>
     </main>
   );
 }
