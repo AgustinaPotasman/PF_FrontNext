@@ -1,6 +1,11 @@
-import styles from "./boton.module.css"
+import React from 'react';
 
-export default function boton({sendText})
-{
-    return <button type="submit">{sendText}</button>;
-}
+const Boton = ({ sendText, onClick }) => {
+  return (
+    <button onClick={onClick}>
+      {sendText}
+    </button>
+  );
+};
+
+export default Boton;

@@ -1,50 +1,40 @@
-'use client'
+'use client';
 
-import React, {useState} from "react"
-
-import Titulo from "../components/Titulo";
-import Input from "../components/Input";
-import styles from "./page.module.css";
-import formDesplegable from "../components/FormDesplegable";
-import Boton from "../components/Boton";
-import Formulario from "../components/Modal";
+import React, { useState } from 'react';
+import Titulo from '../components/titulo';
+import Input from '../components/input';
+import styles from './page.module.css';
+import formDesplegable from '../components/formDesplegable';
+import Boton from '../components/boton';
+import Modal from '../components/Modal';
 
 export default function Home() {
+  const [openAlert, setOpenAlert] = useState(false);
 
-  const [openAlert, setOpenAlert] = useState(false)
+  const handleOpenAlert = () => {
+    console.log('Opening modal');  // Debug log
+    setOpenAlert(true);
+  };
 
-  
-const handleOpenAlert = () => {
-setOpenAlert(true)
-}
+  const handleCloseAlert = () => {
+    console.log('Closing modal');  // Debug log
+    setOpenAlert(false);
+  };
 
   return (
     <main>
-        <Titulo params="Informacion"></Titulo>
-        <Input iType="text" iPlaceholder="Ingrese sus sintomas"></Input>
-        <formDesplegable>
-          {formDesplegable({})}
-        </formDesplegable>
-        <Boton sendText={"siguiente"}/>
+      <Titulo params="Informacion" />
+      <formDesplegable>
+        {formDesplegable({})}
+      </formDesplegable>
+      <Input iType="text" iPlaceholder="Ingrese sus sintomas" />
+      <Boton sendText="siguiente" onClick={handleOpenAlert} />
+      {openAlert && (
+        <Modal onClose={handleCloseAlert}>
+          <div>Contenido del modal</div>
+          <button onClick={handleCloseAlert}>Cerrar</button>
+        </Modal>
+      )}
     </main>
   );
 }
-
-
-/*
-// Obtiene el botón y el modal
-var openModalBtn = document.getElementById("openModalBtn");
-var modal = document.getElementById("myModal");
-
-// Abre el modal cuando se hace clic en el botón
-openModalBtn.onclick = function() {
-  modal.style.display = "block";
-};
-
-// Cierra el modal cuando se hace clic fuera del contenido del modal
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
-*/

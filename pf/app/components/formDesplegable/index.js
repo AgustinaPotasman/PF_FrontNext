@@ -1,9 +1,11 @@
+import Boton from "../boton"
 import styles from "./formDesplegable.module.css"
 
 export default function formDesplegable({}){
     return (
+        <div class= "dropdown">
+            <Boton>Dropdown button</Boton>
         <form action="/submit" method="post">
-            <label for="opciones">Tipo de guardia:</label>
             <select id="opciones" name="opciones">
                 <option value="opcion1">Pediatria</option>
                 <option value="opcion2">Ginecología</option>
@@ -13,5 +15,6 @@ export default function formDesplegable({}){
                 <option value="opcion4">Cirugía</option>
             </select>
         </form>
+        </div>
     )
 }

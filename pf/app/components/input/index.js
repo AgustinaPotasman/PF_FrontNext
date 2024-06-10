@@ -8,3 +8,6 @@ export default function Input({iType , iPlaceholder , iLabel}) {
     );
   }
   
+
+  import React from 'react';
+
