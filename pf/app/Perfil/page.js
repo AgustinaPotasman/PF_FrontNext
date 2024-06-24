@@ -19,7 +19,7 @@ export default function Home() {
 const ProximoTurnoPage = () => {
     return (
         <main className={styles.container}>
-            <Titulo params="Proximo Turno" />
+            <Titulo params="Agustina Potasman" />
         </main>
     );
 };
