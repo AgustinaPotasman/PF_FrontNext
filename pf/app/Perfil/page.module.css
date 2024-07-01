@@ -1,0 +1,123 @@
+/* Estilos para la página principal */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+/* Estilos para el formulario */
+.form {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el encabezado del formulario */
+.header {
+    background-color: #c62828;
+    padding: 20px;
+    text-align: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.header img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffffff;
+}
+
+.header h2 {
+    color: #ffffff;
+    margin: 10px 0 0;
+    font-size: 24px;
+}
+
+/* Estilos para los grupos de entrada */
+.formGroup {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.inputContainer {
+    display: flex;
+    align-items: center;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.inputContainer:focus-within {
+    border-color: #c62828;
+    background-color: #ffffff;
+}
+
+.input {
+    width: 100%;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 16px;
+    padding-right: 40px; /* Asegura espacio para el ícono */
+}
+
+.editIcon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 18px;
+    color: #c62828;
+}
+
+/* Estilos para el botón */
+.button {
+    background-color: #c62828;
+    color: #ffffff;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background-color: #b71c1c;
+}
+
+/* Estilos para el pie de página */
+.footer {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    background-color: #ffffff;
+    border-top: 1px solid #cccccc;
+    margin-top: 20px;
+}
+
+.footer img {
+    width: 30px;
+    height: 30px;
+    filter: invert(50%);
+}

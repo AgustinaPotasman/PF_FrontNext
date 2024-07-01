@@ -1,12 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
-import Titulo from '../components/titulo';
-import Input from '../components/input';
+import React from 'react';
 import styles from './page.module.css';
-import FormDesplegable from '../components/formDesplegable';
-import Boton from '../components/boton';
-import Modal from '../components/Modal';
+import Form from '../components/Form';
+import Titulo from '../components/titulo';
 
 export default function Home() {
     return (
@@ -19,7 +16,8 @@ export default function Home() {
 const ProximoTurnoPage = () => {
     return (
         <main className={styles.container}>
-            <Titulo params="Agustina Potasman" />
+            <Titulo params="Agustina Potasman"></Titulo>
+            <Form />
         </main>
     );
 };
