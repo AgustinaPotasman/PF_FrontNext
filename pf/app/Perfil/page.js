@@ -4,6 +4,7 @@ import React from 'react';
 import styles from './page.module.css';
 import Form from '../components/Form';
 import Titulo from '../components/titulo';
+import Footer from '../components/footer';
 
 export default function Home() {
     return (
@@ -18,6 +19,8 @@ const ProximoTurnoPage = () => {
         <main className={styles.container}>
             <Titulo params="Agustina Potasman"></Titulo>
             <Form />
+            <Footer></Footer>
         </main>
+  
     );
 };
