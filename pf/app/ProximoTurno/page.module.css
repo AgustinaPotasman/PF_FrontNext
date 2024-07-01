@@ -1,8 +1,78 @@
+/* Contenedor principal */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px; /* Espacio entre los componentes */
   padding: 20px;
-  background-color: #f7f7f7;
+  background-color: #f0f0f0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  gap: 20px; /* Espacio entre los componentes */
+}
+
+/* Contenedor del botón */
+.botonContainer {
+  width: 100%;
+  max-width: 400px;
+  margin: 500px 0;
+  width: 500px;
+}
+
+/* Estilos del botón */
+.fullWidthButton {
+  width: 100%;
+  padding: 40px;
+  background-color: #c62828;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 500px;
+}
+
+.button:hover {
+  background-color: #b71c1c;
+}
+
+
+.fullWidthButton:hover {
+  background-color: #b71c1c;
+}
+
+/* Estilos del modal */
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  width: 100%; /* Usar el ancho completo */
+  max-width: 400px; /* Ajustar al mismo máximo ancho */
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modalHeader {
+  margin-bottom: 20px;
+}
+
+.modalTitle {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
 }

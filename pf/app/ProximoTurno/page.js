@@ -11,27 +11,27 @@ import ModalCancelacion from '../components/ModalCancelacion'
 export default function ProximoTurno() {
     const [openAlert, setOpenAlert] = useState(false);
 
-  const handleOpenAlert = () => {
-    console.log('Abriendo modal');  
-    setOpenAlert(true);
-  };
+    const handleOpenAlert = () => {
+        console.log('Abriendo modal');  
+        setOpenAlert(true);
+    };
 
-  const handleCloseAlert = () => {
-    console.log('Cerrando modal'); 
-    setOpenAlert(false);
-
-  };
+    const handleCloseAlert = () => {
+        console.log('Cerrando modal'); 
+        setOpenAlert(false);
+    };
 
     return (
         <div className={styles.container}>
             <Timer />
             <TurnoInfo />
-            <Boton sendText="siguiente" onClick={handleOpenAlert} />
-                {openAlert && (
-                <ModalCancelacion onClose={handleCloseAlert} />
-              )}
-              <Footer></Footer>
+            <div className={styles.commonWidth}>
+                <Boton sendText="siguiente" onClick={handleOpenAlert} />
+            </div>
+            {openAlert && (
+                <ModalCancelacion onClose={handleCloseAlert} className={styles.commonWidth} />
+            )}
+            <Footer />
         </div>
     );
 }
-

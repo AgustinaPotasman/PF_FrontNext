@@ -17,10 +17,12 @@ export default function Home() {
 const ProximoTurnoPage = () => {
     return (
         <main className={styles.container}>
-            <Titulo params="Agustina Potasman"></Titulo>
+            <header className={styles.header}>
+                <img src="/img/mujer.jpg" className={styles.imagenRedonda} alt="Imagen redonda" />
+                <h2>Victoria Robertson</h2>
+            </header>
             <Form />
-            <Footer></Footer>
+            <Footer />
         </main>
-  
     );
 };
