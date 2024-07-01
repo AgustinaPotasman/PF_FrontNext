@@ -30,6 +30,7 @@ export default function ProximoTurno() {
                 {openAlert && (
                 <ModalCancelacion onClose={handleCloseAlert} />
               )}
+              <Footer></Footer>
         </div>
     );
 }

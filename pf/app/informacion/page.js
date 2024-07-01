@@ -7,6 +7,7 @@ import styles from './page.module.css';
 import formDesplegable from '../components/formDesplegable';
 import Boton from '../components/boton';
 import Modal from '../components/Modal';
+import Footer from '../components/footer';
 
 export default function Home() {
   const [openAlert, setOpenAlert] = useState(false);
@@ -33,6 +34,7 @@ export default function Home() {
       {openAlert && (
       <Modal onClose={handleCloseAlert} />
     )}
+    <Footer></Footer>
     </main>
   );
 }
