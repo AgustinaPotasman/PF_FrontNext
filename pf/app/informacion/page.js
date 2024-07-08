@@ -26,9 +26,7 @@ export default function Home() {
   return (
     <main className={styles.container}>
       <Titulo params="Informacion" />
-      <formDesplegable>
-        {formDesplegable({})}
-      </formDesplegable>
+     <formDesplegable></formDesplegable>
       <Input iType="text" iPlaceholder="Ingrese sus sintomas" />
       <Boton sendText="siguiente" onClick={handleOpenAlert} />
       {openAlert && (
@@ -38,6 +36,6 @@ export default function Home() {
     </main>
   );
 }
-
+// <FormDesplegable categorias={categorias} /> {/* Asegúrate de pasar las categorías al componente FormDesplegable */}
 
 
