@@ -1,38 +1,60 @@
-// FormDesplegable.js
-import React from 'react';
-import styles from './formDesplegable.module.css'; // Importa los estilos CSS
+'use client';
 
-export default function FormDesplegable({}) {
-  return (
-    <div className={styles.formDesplegable}>
-      <form action="/submit" method="post">
-        <select id="opciones" name="opciones" className={styles.select}>
-          <option value="opcion1">Pediatría</option>
-          <option value="opcion2">Ginecología</option>
-          <option value="opcion3">Neonatología</option>
-          <option value="opcion4">Cardiología</option>
-          <option value="opcion5">Otorrinolaringología</option>
-          <option value="opcion6">Cirugía</option>
-        </select>
-      </form>
-    </div>
-  );
-}
-/* import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './formDesplegable.module.css';
-//import categorias from '../categorias'; 
+
 
 export default function FormDesplegable() {
+/*useEffect(() => {
+
+  const url = 'http://localhost:3001/api/areas'; 
+
+  const fetchCategorias = async () => {
+      try {
+          const response = await fetch(url);
+          if (!response.ok) {
+              throw new Error(`Error: ${response.status} ${response.statusText}`);
+          }
+          const data = await response.json();
+          console.log('Obtuve respuesta:', data);
+          setCategorias(data);
+      } catch (error) {
+          setError(error);
+          console.error('Error:', error);
+      }
+  };
+
+  fetchCategorias();
+  console.log(fetchCategorias);
+}, []); 
+*/
+
+
+const [categorias, setCategorias] = useState([]);
+const [error, setError] = useState(null);
+
+const url = 'http://localhost:3001/api/areas'
+
+useEffect(() => {
+  const fetchProductos = async () => {
+      const response = await fetch(url);
+      const categorias = await response.json();
+      setCategorias(categorias);
+  };
+
+  fetchProductos();
+}, []);
+
   return (
     <div className={styles.formDesplegable}>
       <form action="/submit" method="post">
         <select id="opciones" name="opciones" className={styles.select}>
-          {categorias.map((categoria) => (
-            <option key={categoria.id} value={categoria.id}>{categoria.nombre}</option>
+          {categorias.map((categorias) => (
+            <option key={categorias.id} value={categorias.id}>{categorias.nombre}</option>
           ))}
         </select>
       </form>
     </div>
   );
 }
-*/
+
