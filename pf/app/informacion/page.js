@@ -8,6 +8,7 @@ import formDesplegable from '../components/formDesplegable';
 import Boton from '../components/boton';
 import Modal from '../components/Modal';
 import Footer from '../components/footer';
+import Subtitulo from '../components/subtitulo/page';
 
 export default function Home() {
   const [openAlert, setOpenAlert] = useState(false);

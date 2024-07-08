@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import React, { useEffect, useState } from 'react';
 import Timer from '../components/timer';
@@ -7,7 +7,7 @@ import Footer from '../components/footer';
 import styles from './page.module.css';
 import Boton from '../components/boton';
 import ModalCancelacion from '../components/ModalCancelacion';
-import FormDesplegable from '../components/formDesplegable'
+import FormDesplegable from '../components/formDesplegable';
 
 export default function ProximoTurno() {
     const [openAlert, setOpenAlert] = useState(false);
@@ -15,35 +15,28 @@ export default function ProximoTurno() {
     const [error, setError] = useState(null);
 
     const handleOpenAlert = () => {
-        console.log('Abriendo modal');  
+        console.log('Abriendo modal');
         setOpenAlert(true);
     };
 
     const handleCloseAlert = () => {
-        console.log('Cerrando modal'); 
+        console.log('Cerrando modal');
         setOpenAlert(false);
     };
 
     useEffect(() => {
-        const url = 'https://api.tudominio.com/categoria';
+        let categoria;
+        const url = 'http://localhost:3000/api/areas'; // Ajusta la URL de tu API aquí
 
-        const fetchCategorias = async (/* faltan los parametros */) => {
+        const fetchCategorias = async () => {
             try {
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    }
-                });
-
+                const response = await fetch(url);
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status} ${response.statusText}`);
                 }
-
                 const data = await response.json();
+                console.log('Obtuve respuesta:', data);
                 setCategorias(data);
-                console.log(categorias);
             } catch (error) {
                 setError(error);
                 console.error('Error:', error);
@@ -64,13 +57,11 @@ export default function ProximoTurno() {
             <div className={styles.commonWidth}>
                 <Boton sendText="siguiente" onClick={handleOpenAlert} />
             </div>
-            {openAlert && (
-                <ModalCancelacion onClose={handleCloseAlert} className={styles.commonWidth} />
-            )}
+            <ModalCancelacion onClose={handleCloseAlert} className={styles.commonWidth} />
             <Footer />
             <div>
                 <h2>Categorías</h2>
-                <FormDesplegable categorias={categorias} /> {/* Asegúrate de pasar las categorías al componente FormDesplegable */}
+                <FormDesplegable categorias={categorias} />
             </div>
         </div>
     );
