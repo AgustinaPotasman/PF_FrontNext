@@ -8,6 +8,7 @@ import formDesplegable from '../components/formDesplegable';
 import Boton from '../components/boton';
 import Modal from '../components/Modal';
 import Footer from '../components/footer';
+import Subtitulo from '../components/subtitulo/page';
 
 export default function Home() {
   const [openAlert, setOpenAlert] = useState(false);
@@ -26,9 +27,7 @@ export default function Home() {
   return (
     <main className={styles.container}>
       <Titulo params="Informacion" />
-      <formDesplegable>
-        {formDesplegable({})}
-      </formDesplegable>
+     <formDesplegable></formDesplegable>
       <Input iType="text" iPlaceholder="Ingrese sus sintomas" />
       <Boton sendText="siguiente" onClick={handleOpenAlert} />
       {openAlert && (
@@ -38,6 +37,6 @@ export default function Home() {
     </main>
   );
 }
-
+// <FormDesplegable categorias={categorias} /> {/* Asegúrate de pasar las categorías al componente FormDesplegable */}
 
 
