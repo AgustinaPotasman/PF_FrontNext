@@ -32,9 +32,6 @@ export default function ProximoTurno() {
             </div>
             <ModalCancelacion onClose={handleCloseAlert} className={styles.commonWidth} />
             <Footer />
-            <div>
-            <FormDesplegable/>
-            </div>
         </div>
     );
 }

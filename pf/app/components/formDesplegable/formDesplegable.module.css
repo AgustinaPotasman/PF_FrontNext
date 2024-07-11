@@ -1,50 +1,28 @@
-/* Estilo para el contenedor del formulario desplegable */
-.formDesplegable {
-  width: 126.5%;
-  padding-right: 70px;
-  margin-left: 10px 0;
-  position: relative; /* Asegúrate de que el contenedor esté posicionado correctamente */
-  border-radius: 8px;
+/* formDesplegable.module.css */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-/* Estilo para el select del formulario desplegable */
-.formDesplegable select {
-  width: 100%;
-  padding: 12px; /* Aumenta el padding para mayor comodidad */
-  font-size: 1.2rem;
-  border: 2px solid #ddd;
-  border-radius: 6px;
-  outline: none;
-  transition: border-color 0.2s ease-in-out;
-  appearance: none; /* Oculta la flecha por defecto del navegador */
-  -webkit-appearance: none; /* Oculta la flecha por defecto en navegadores WebKit */
-  background-color: #f7f7f7; /* Fondo uniforme */
-  color: #333; /* Color de texto uniforme */
-  position: relative; /* Asegúrate de que el select sea posicionado correctamente */
-  box-sizing: border-box; /* Incluye padding y border en el ancho y alto */
+.dropdown select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-/* Estilo para el select en foco */
-.formDesplegable select:focus {
-  border-color: #A01111;
+.dropdown select:hover {
+  border-color: #888;
 }
 
-/* Estilo para las opciones del select */
-.formDesplegable select option {
-  font-size: 1rem;
-  padding: 10px;
+.dropdown select:focus {
+  outline: none;
+  border-color: #555;
 }
 
-/* Flecha del dropdown */
-.formDesplegable::after {
-  width: 26.5%;
-  content: '\25BC'; /* Unicode para la flecha hacia abajo */
-  position: absolute;
-  top: 50%;
-  right: 20px; /* Ajusta esta posición según tus necesidades */
-  transform: translateY(-50%);
-  pointer-events: none; /* Permite hacer clic a través de la flecha */
-  color: #666;
-  font-size: 1.5rem; /* Ajusta el tamaño de la flecha según tus necesidades */
+.dropdown form {
+  display: inline-block;
+  margin-left: 10px; /* Ajusta el margen según necesites */
 }

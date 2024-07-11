@@ -31,8 +31,7 @@ export default function Home() {
         {formDesplegable({})}
       </formDesplegable>
       <Input iType="text" iPlaceholder="Ingrese sus sintomas" />
-
-      <Boton sendText="siguiente" onClick={handleOpenAlert} />
+   <Boton sendText="siguiente" onClick={handleOpenAlert} />
       {openAlert && (
         <Modal onClose={handleCloseAlert}>
           <div>Contenido del modal</div>
