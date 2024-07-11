@@ -1,10 +1,48 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
-import styles from './formDesplegable.module.css';
-
+import { useEffect, useState } from "react";
+import Boton from "../boton";
+import styles from "./formDesplegable.module.css";
+import axios from "axios";
 
 export default function FormDesplegable() {
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:3001/api/areas")
+      .then(response => {
+        setCategorias(response.data); 
+      })
+      .catch(error => {
+        console.error('Error fetching categorias:', error);
+      });
+  }, []); 
+
+  return (
+    <div className="dropdown">
+      <Boton>Dropdown button</Boton>
+      <form action="/submit" method="post">
+        <select id="opciones" name="opciones">
+          {categorias.map(cat => (
+            <option key={cat.id} value={cat.id}>{cat.Nombre}</option>
+          ))}
+        </select>
+      </form>
+    </div>
+  );
+}
+
+/* 
+import *as axios from “axios”; //en la pantalla del código
+const [ pokemones, setDolares] =useState({});
+useEffect(() => []{
+axios,get(“la url”)
+		.then(response =>{
+ 		console.log(response); //resultado de la api 
+setDolares[response.data]
+} //la respuesta del json	
+console.log(“hola”);
+}, [])
+
+*/
 /*useEffect(() => {
 
   const url = 'http://localhost:3001/api/areas'; 
@@ -29,7 +67,7 @@ export default function FormDesplegable() {
 }, []); 
 */
 
-
+/*
 const [categorias, setCategorias] = useState([]);
 const [error, setError] = useState(null);
 
@@ -44,6 +82,10 @@ useEffect(() => {
 
   fetchProductos();
 }, []);
+*/ 
+
+
+/*
 
   return (
     <div className={styles.formDesplegable}>
@@ -57,4 +99,5 @@ useEffect(() => {
     </div>
   );
 }
+*/
 

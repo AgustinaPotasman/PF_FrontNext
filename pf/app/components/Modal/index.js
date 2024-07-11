@@ -7,7 +7,7 @@ const Modal = ({ onClose, children }) => {
   const router = useRouter();
 
   const handleConfirm = () => {
-    router.push('../ProximoTurno'); // Navega a la pantalla proximoTurno
+    router.push('../ProximoTurno'); 
   };
 
   return (

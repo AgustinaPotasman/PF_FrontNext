@@ -27,11 +27,17 @@ export default function Home() {
   return (
     <main className={styles.container}>
       <Titulo params="Informacion" />
-     <formDesplegable></formDesplegable>
+      <formDesplegable>
+        {formDesplegable({})}
+      </formDesplegable>
       <Input iType="text" iPlaceholder="Ingrese sus sintomas" />
+
       <Boton sendText="siguiente" onClick={handleOpenAlert} />
       {openAlert && (
-      <Modal onClose={handleCloseAlert} />
+        <Modal onClose={handleCloseAlert}>
+          <div>Contenido del modal</div>
+          <button onClick={handleCloseAlert}>Cerrar</button>
+        </Modal>
     )}
     <Footer></Footer>
     </main>
