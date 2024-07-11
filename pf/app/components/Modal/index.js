@@ -7,7 +7,7 @@ const Modal = ({ onClose, children }) => {
   const router = useRouter();
 
   const handleConfirm = () => {
-    router.push('../ProximoTurno'); 
+    router.push('./ProximoTurno'); 
   };
 
   return (

@@ -30,7 +30,11 @@ export default function ProximoTurno() {
             <div className={styles.commonWidth}>
                 <Boton sendText="siguiente" onClick={handleOpenAlert} />
             </div>
-            <ModalCancelacion onClose={handleCloseAlert} className={styles.commonWidth} />
+            {openAlert && (
+        <ModalCancelacion onClose={handleCloseAlert}>
+          <div>Contenido del modal</div>
+          <button onClick={handleCloseAlert}>Cerrar</button>
+        </ModalCancelacion>)}
             <Footer />
         </div>
     );
