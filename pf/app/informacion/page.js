@@ -42,6 +42,3 @@ export default function Home() {
     </main>
   );
 }
-// <FormDesplegable categorias={categorias} /> {/* Asegúrate de pasar las categorías al componente FormDesplegable */}
-
-
