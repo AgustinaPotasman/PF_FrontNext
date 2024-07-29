@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
 import styles from './TurnoInfor.module.css';
 import Boton from '../boton';
+import axios from "axios";
 export default function TurnoInfo() {
     return (
         <div className={styles.turnoInfo}>

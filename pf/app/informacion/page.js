@@ -38,6 +38,7 @@ export default function Home() {
           <button onClick={handleCloseAlert}>Cerrar</button>
         </Modal>
     )}
+    <PerfilMedico></PerfilMedico>
     <Footer></Footer>
     </main>
   );
