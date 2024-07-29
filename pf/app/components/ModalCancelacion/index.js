@@ -8,7 +8,7 @@ const Modal = ({ onClose, children }) => {
   const router = useRouter();
 
   const handleConfirm = () => {
-    router.push('./Pefil'); 
+    router.push('./Perfil'); 
   };
   return (
     <div className={styles.modalBackdrop}>

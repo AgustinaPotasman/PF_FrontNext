@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Boton from "../boton";
-import styles from "./formDesplegable.module.css"; // Importa los estilos aquí
+import styles from "./formDesplegable.module.css"; 
 import axios from "axios";
 
 export default function FormDesplegable() {
