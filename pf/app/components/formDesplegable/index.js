@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import Boton from "../boton";
 import styles from "./formDesplegable.module.css"; 
 import axios from "axios";
+import cors from "cors";
 
 export default function FormDesplegable() {
   const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/areas")
+    axios.get("http://localhost:3000/api/areas")
       .then(response => {
         setCategorias(response.data); 
+        console.log(response.data)
       })
       .catch(error => {
         console.error('Error fetching categorias:', error);

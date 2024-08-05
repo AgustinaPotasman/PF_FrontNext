@@ -1,51 +1,59 @@
-"use client"
-
-import React , {useState, useEffect } from "react";
+"use client";
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ListaPacientes from '../components/ListaPacientes';
-import ModalConfirmacion from '../components/ModalConfirmacion';
-import styles from './page.module.css';
+import styles from '../page.module.css';
 
-const PantallaMedico = () => {
-    const [pacienteSeleccionado, setPacienteSeleccionado] = useState(null);
-    const [pacientes, setPacientes] = useState([]);
+const ListaEspera = () => {
+  const [data, setData] = useState([]);
+  const [error, setError] = useState('');
 
-    useEffect(() => {
-        axios.get("http://localhost:3000/api/pacientes")
-            .then(response => {
-                setPacientes(response.data);
-            })
-    }, []);
+  useEffect(() => {
+    axios.get('http://localhost:3000/api/listaEspera/1')
+      .then(response => {
+        console.log('API response:', response.data);
+        if (Array.isArray(response.data)) {
+          setData(response.data);
+        } else {
+          setError('La respuesta de la API no es válida');
+        }
+      })
+      .catch(error => {
+        console.error('Error al obtener la lista de espera:', error);
+        setError('Error al obtener la lista de espera');
+      });
+  }, []);
 
-    const handlePacienteClick = (paciente) => {
-        setPacienteSeleccionado(paciente);
-    };
+  const handleCallPatient = (patientName) => {
+    alert(`Llamando a ${patientName}`);
+    // Aquí puedes agregar la lógica para llamar al paciente
+  };
 
-    const handleConfirmar = () => {
-        axios.post(`http://localhost:3000/api/pacientes/${pacienteSeleccionado.id}/confirmar`)
-            .then(response => {
-                setPacientes(pacientes.filter(p => p.id !== pacienteSeleccionado.id));
-                setPacienteSeleccionado(null);
-            })
-    };
-
-    const handleCancelar = () => {
-        setPacienteSeleccionado(null);
-    };
-
-    return (
-        <div className={styles.pantallaMedico}>
-            <h1>Lista de espera</h1>
-            <ListaPacientes pacientes={pacientes} onPacienteClick={handlePacienteClick} />
-            {pacienteSeleccionado && (
-                <ModalConfirmacion
-                    paciente={pacienteSeleccionado}
-                    onConfirmar={handleConfirmar}
-                    onCancelar={handleCancelar}
-                />
-            )}
-        </div>
-    );
+  return (
+    <div className={styles.container}>
+      <h1>Lista de espera</h1>
+      {error && <p className={styles.error}>{error}</p>}
+      <div className={styles.list}>
+        {data.length === 0 ? (
+          <p>No hay datos disponibles</p>
+        ) : (
+          data.map((item, index) => (
+            <div key={index} className={styles.listItem}>
+              <div className={styles.index}>{index + 1}</div>
+              <div className={styles.name}>{item.pacientenombre}</div>
+              <div className={styles.area}>{item.area}</div>
+              <div className={styles.medico}>{item.mediconombre}</div>
+              <button
+                className={styles.callButton}
+                onClick={() => handleCallPatient(item.pacientenombre)}
+              >
+                Llamar paciente
+              </button>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
 };
 
-export default PantallaMedico;
+export default ListaEspera;
