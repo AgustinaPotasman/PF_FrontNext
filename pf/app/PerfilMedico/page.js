@@ -10,7 +10,7 @@ const ListaEspera = () => {
   useEffect(() => {
     axios.get('http://localhost:3000/api/listaEspera/1')
       .then(response => {
-        console.log('API response:', response.data);
+        console.log('API response:', response.data);  // Aquí debes ver idTurno en cada item
         if (Array.isArray(response.data)) {
           setData(response.data);
         } else {
@@ -22,12 +22,28 @@ const ListaEspera = () => {
         setError('Error al obtener la lista de espera');
       });
   }, []);
+  
 
-  const handleCallPatient = (patientName) => {
-    alert(`Llamando a ${patientName}`);
-    // Aquí puedes agregar la lógica para llamar al paciente
+  const handleCallPatient = async (patientName, idTurno) => {
+  
+    try {
+      const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
+        idTurno: idTurno,
+        nuevoEstadoId: 2 // ID del estado "Atendiendo"
+      });
+  
+      if (response.data.success) {
+        alert(`Llamando a ${patientName}`);
+      } else {
+        alert('No se pudo actualizar el estado del turno');
+      }
+    } catch (error) {
+      console.error('Error al actualizar el estado del turno:', error);
+      alert('Error al actualizar el estado del turno');
+    }
   };
-
+  
+  
   return (
     <div className={styles.container}>
       <h1>Lista de espera</h1>
@@ -44,7 +60,11 @@ const ListaEspera = () => {
               <div className={styles.medico}>{item.mediconombre}</div>
               <button
                 className={styles.callButton}
-                onClick={() => handleCallPatient(item.pacientenombre)}
+                onClick={() => {
+                  console.log("idTurno:", item.idturno); 
+                  handleCallPatient(item.pacientenombre, item.idturno);
+                  console.log(item.idturno)
+                }}
               >
                 Llamar paciente
               </button>
@@ -54,6 +74,6 @@ const ListaEspera = () => {
       </div>
     </div>
   );
-};
+}  
 
 export default ListaEspera;
