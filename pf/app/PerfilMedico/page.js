@@ -1,39 +1,47 @@
-"use client";
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import styles from '../page.module.css';
+// PerfilMedico/page.js
+'use client';
 
-const ListaEspera = () => {
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import styles from './page.module.css';
+
+const PerfilMedico = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
+  const router = useRouter();
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/api/listaEspera/1');
+      if (Array.isArray(response.data)) {
+        setData(response.data);
+      } else {
+        setError('La respuesta de la API no es válida');
+      }
+    } catch (error) {
+      console.error('Error al obtener la lista de espera:', error);
+      setError('Error al obtener la lista de espera');
+    }
+  };
 
   useEffect(() => {
-    axios.get('http://localhost:3000/api/listaEspera/1')
-      .then(response => {
-        console.log('API response:', response.data);  // Aquí debes ver idTurno en cada item
-        if (Array.isArray(response.data)) {
-          setData(response.data);
-        } else {
-          setError('La respuesta de la API no es válida');
-        }
-      })
-      .catch(error => {
-        console.error('Error al obtener la lista de espera:', error);
-        setError('Error al obtener la lista de espera');
-      });
-  }, []);
-  
+    fetchData();
+  }, []); // Vacío para que solo se ejecute al montar el componente
 
   const handleCallPatient = async (patientName, idTurno) => {
-  
+    if (!idTurno) {
+      return; // Elimina la alerta de ID de turno no válido
+    }
+
     try {
       const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
         idTurno: idTurno,
         nuevoEstadoId: 2 // ID del estado "Atendiendo"
       });
-  
+
       if (response.data.success) {
-        alert(`Llamando a ${patientName}`);
+        router.push('../PacienteAtendido'); // Redirige a la página PacienteAtendido
       } else {
         alert('No se pudo actualizar el estado del turno');
       }
@@ -42,8 +50,7 @@ const ListaEspera = () => {
       alert('Error al actualizar el estado del turno');
     }
   };
-  
-  
+
   return (
     <div className={styles.container}>
       <h1>Lista de espera</h1>
@@ -60,11 +67,7 @@ const ListaEspera = () => {
               <div className={styles.medico}>{item.mediconombre}</div>
               <button
                 className={styles.callButton}
-                onClick={() => {
-                  console.log("idTurno:", item.idturno); 
-                  handleCallPatient(item.pacientenombre, item.idturno);
-                  console.log(item.idturno)
-                }}
+                onClick={() => handleCallPatient(item.pacientenombre, item.idturno)}
               >
                 Llamar paciente
               </button>
@@ -74,6 +77,6 @@ const ListaEspera = () => {
       </div>
     </div>
   );
-}  
+};
 
-export default ListaEspera;
+export default PerfilMedico;
