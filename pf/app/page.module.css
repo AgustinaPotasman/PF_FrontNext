@@ -1,29 +1,17 @@
-.main {
+.logoContainer {
+  position: fixed; /* Fija el logo en la pantalla */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff; /* Fondo blanco para el logo */
   display: flex;
-  flex-direction: column;
-  align-items: center; 
-  justify-content: flex-start; 
-  height: 100vh; 
-  text-align: center; 
-  padding-top: 5rem;
-  background-color: #fff;
-  color: #333;
+  justify-content: center;
+  align-items: center;
+  z-index: 999; /* Asegúrate de que el logo esté encima del contenido */
 }
 
-
-.container {
-  width: 20rem;
-  margin-top: 3rem;
-}
-
-.titulo {
-  font-size: 2rem; 
-  font-weight: bold; 
-  color: #333; 
-  margin-bottom: 1rem; 
-}
-
-.subtitulo {
-  font-size: 1.2rem; 
-  color: #666; 
+.homeContent {
+  padding: 2rem;
+  text-align: center;
 }
