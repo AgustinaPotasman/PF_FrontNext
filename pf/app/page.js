@@ -7,50 +7,51 @@ import Boton from './components/boton';
 
 const HomePage = () => {
   const [showLogo, setShowLogo] = useState(true);
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
-    // Temporizador para ocultar el logo después de 5 segundos
-    const timer = setTimeout(() => {
+    // Temporizador para ocultar el logo después de 2 segundos
+    const timerLogo = setTimeout(() => {
       setShowLogo(false);
-    }, 5000);
+    }, 2000);
 
-    // Limpiar el temporizador si el componente se desmonta
-    return () => clearTimeout(timer);
+    // Temporizador para mostrar el contenido después de ocultar el logo
+    const timerContent = setTimeout(() => {
+      setShowContent(true);
+    }, 2000); // Espera el mismo tiempo que el ocultamiento del logo
+
+    // Limpiar los temporizadores si el componente se desmonta
+    return () => {
+      clearTimeout(timerLogo);
+      clearTimeout(timerContent);
+    };
   }, []);
 
   return (
-    <div>
+    <div className={styles.logoContainer}>
       {showLogo ? (
-        <div className={styles.logoContainer}>
+        <div>
           <Image
             src="/img/LOGO.jpg"
             alt="Logo"
-            layout="fill" // Ajusta el tamaño de la imagen al contenedor
-            objectFit="contain" // Mantiene la proporción de la imagen
+            layout="intrinsic" // O 'responsive' según el caso
+            width={360} // Ajusta el ancho si es necesario
+            height={180} // Ajusta la altura para mantener la proporción
           />
         </div>
       ) : (
-        <div className={styles.homeContent}>
-          {/* Aquí va el contenido principal de la página de inicio */}
+        <div className={`${styles.homeContent} ${showContent ? styles.show : ''}`}>
           <h1>Bienvenido a la Hospiturn</h1>
-          <h4>Reserva tu turno medico"</h4>
+          <h4>Reserva tu turno medico</h4>
+          <div className={styles.container}>
+            <a href="/informacion">
+              <Boton sendText={"¡Empeza aca!"} type={"secondary"} />
+            </a>
+          </div>
         </div>
-        
       )}
-      <div className={styles.container}>
-        <link href="/informacion"><Boton sendText={"¡Empeza aca!"} type={"secondary"}></Boton></link>
-      </div>
     </div>
   );
 };
 
 export default HomePage;
-
-
-
-      <img
-  src="/img/LOGO.jpg"
-  alt="Logo"
-  style={{ width: '360px', height: 'auto' }} 
-/>
-      
