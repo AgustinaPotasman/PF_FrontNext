@@ -7,6 +7,8 @@ const TurnoInfo = ({ especialidad, turnosPrevios }) => {
       <h2>Información del Turno</h2>
       <p><strong>Especialidad:</strong> {especialidad}</p>
       <p><strong>Turnos Previos:</strong> {turnosPrevios}</p>
+
+      <h4>Recordá llegar a tiempo al hospital, de lo contrario perderá su turno </h4>
     </div>
   );
 };

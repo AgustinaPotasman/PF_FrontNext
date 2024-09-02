@@ -8,33 +8,40 @@
   min-height: 100vh;
   box-sizing: border-box;
   gap: 20px; /* Espacio entre los componentes */
+  margin-top: 50px; /* Mueve todo hacia abajo */
+}
+
+/* Estilo del círculo con temporizador */
+.timerWrapper {
+  width: 150px;
+  height: 150px;
+  border: 10px solid #b71c1c; /* Borde rojo */
+  border-radius: 50%; /* Hace que el div sea circular */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
 }
 
 /* Contenedor del botón */
 .botonContainer {
   width: 100%;
   max-width: 400px;
-  margin: 500px 0;
-  width: 500px;
+  margin: 20px 0;
 }
 
 /* Estilos del botón */
 .fullWidthButton {
   width: 100%;
-  padding: 40px;
+  padding: 15px;
   background-color: #c62828;
   color: white;
   border: none;
   border-radius: 5px;
   font-size: 16px;
   cursor: pointer;
-  width: 500px;
 }
-
-.button:hover {
-  background-color: #b71c1c;
-}
-
 
 .fullWidthButton:hover {
   background-color: #b71c1c;
