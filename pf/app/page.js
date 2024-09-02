@@ -8,7 +8,6 @@ import Link from 'next/link';
 const HomePage = () => {
   const [showMap, setShowMap] = useState(false); // Estado para mostrar el mapa
 
-  // Maneja el clic del botón "Ver mapa"
   const handleMapClick = () => {
     setShowMap(prevState => !prevState); // Alterna entre mostrar y ocultar el mapa
   };
