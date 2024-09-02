@@ -1,4 +1,6 @@
-.nav{
+/* layout.module.css */
+
+.nav {
     display: flex;
     list-style: none;
     justify-content: space-around;
@@ -6,13 +8,17 @@
     align-items: center;
     background-color: #A01111;
     font-weight: 500;
-}
-
-.label{
-    
+    position: fixed; /* Fija el nav en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 20; /* Asegura que el nav esté encima del contenido */
+  }
+  
+  .label {
     color: #fff;
-} 
-.label:hover{
-    color: #dfd9d9
-}
-
+  }
+  
+  .label:hover {
+    color: #dfd9d9;
+  }

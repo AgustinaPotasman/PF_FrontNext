@@ -4,50 +4,88 @@ import { useEffect, useState } from 'react';
 import styles from './page.module.css'; 
 import Image from 'next/image';
 import Boton from './components/boton';
+import Link from 'next/link';
 
 const HomePage = () => {
-  const [showLogo, setShowLogo] = useState(true);
   const [showContent, setShowContent] = useState(false);
+  const [showSecondaryScreen, setShowSecondaryScreen] = useState(false); // Estado para la segunda pantalla
+  const [showMap, setShowMap] = useState(false); // Estado para mostrar el mapa
 
   useEffect(() => {
-    // Temporizador para ocultar el logo después de 2 segundos
-    const timerLogo = setTimeout(() => {
-      setShowLogo(false);
-    }, 2000);
-
-    // Temporizador para mostrar el contenido después de ocultar el logo
     const timerContent = setTimeout(() => {
       setShowContent(true);
-    }, 2000); // Espera el mismo tiempo que el ocultamiento del logo
+    }, 500); 
 
-    // Limpiar los temporizadores si el componente se desmonta
     return () => {
-      clearTimeout(timerLogo);
       clearTimeout(timerContent);
     };
   }, []);
 
+  // Maneja el clic del botón "¡Empezá acá!"
+  const handleButtonClick = () => {
+    setShowSecondaryScreen(true); // Muestra la segunda pantalla al hacer clic
+  };
+
+  // Maneja el clic del botón "Ver mapa"
+  const handleMapClick = () => {
+    setShowMap(true); // Muestra el mapa al hacer clic
+  };
+
   return (
-    <div className={styles.logoContainer}>
-      {showLogo ? (
+    <div className={styles.pageContainer}>
+      {!showSecondaryScreen ? (
+        // Pantalla de bienvenida
         <div>
-          <Image
-            src="/img/LOGO.jpg"
-            alt="Logo"
-            layout="intrinsic" // O 'responsive' según el caso
-            width={360} // Ajusta el ancho si es necesario
-            height={180} // Ajusta la altura para mantener la proporción
-          />
+          <div className={styles.logoContainer}>
+            <Image
+              src="/img/LOGO.jpg"
+              alt="Logo"
+              layout="intrinsic"
+              width={360} 
+              height={180}
+            />
+          </div>
+          <div className={`${styles.homeContent} ${showContent ? styles.show : ''}`}>
+            <h1>Bienvenido a Hospiturn</h1>
+            <h4>Reserva tu turno médico</h4>
+            <div className={styles.container}>
+              <Boton sendText={"¡Empezá acá!"} type={"secondary"} onClick={handleButtonClick} />
+            </div>
+          </div>
         </div>
       ) : (
-        <div className={`${styles.homeContent} ${showContent ? styles.show : ''}`}>
-          <h1>Bienvenido a la Hospiturn</h1>
-          <h4>Reserva tu turno medico</h4>
-          <div className={styles.container}>
-            <a href="/informacion">
-              <Boton sendText={"¡Empeza aca!"} type={"secondary"} />
-            </a>
-          </div>
+        // Segunda pantalla con la foto y los botones
+        <div className={styles.secondaryScreen}>
+          {!showMap ? (
+            // Vista inicial de la segunda pantalla sin el mapa
+            <div className={styles.buttonsContainer}>
+              <Link href="/informacion" passHref legacyBehavior>
+                <a className={styles.linkButton}>
+                  Sacar Turno
+                </a>
+              </Link>
+
+              <div className={styles.nextTurnContainer}>
+                <span className={styles.nextTurnLabel}>Próximo turno en:</span>
+                <span className={styles.nextTurnValue}>---</span>
+              </div>
+
+              <button className={styles.secondaryButton} onClick={handleMapClick}>
+                Ver mapa
+              </button>
+            </div>
+          ) : (
+            // Vista con el mapa
+            <div className={styles.mapContainer}>
+              <Image 
+                src="/img/mapa.png" 
+                alt="Mapa"
+                width={360}
+                height={200}
+                layout="responsive"
+              />
+            </div>
+          )}
         </div>
       )}
     </div>

@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
             <nav className={styles.nav}>
-                <li><Link href="/informacion" className={styles.label}>Informacion</Link></li>
+                <li><Link href="/informacion" className={styles.label}>Sacar turno</Link></li>
                 <li><Link href="/ProximoTurno" className={styles.label}>Proximo turno</Link></li>
                 <li><Link href="/Perfil" className={styles.label}>Perfil</Link></li>
             </nav>
