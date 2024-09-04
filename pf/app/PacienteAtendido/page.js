@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/navigation'; // Importar useRouter
+import { useRouter } from 'next/navigation'; 
 import styles from './page.module.css';
 import ModalMedico from '../components/ModalMedico';
 
@@ -10,7 +10,7 @@ const PacienteAtendido = () => {
   const [showModal, setShowModal] = useState(false);
   const [idTurno, setIdTurno] = useState(null);
   const [error, setError] = useState('');
-  const router = useRouter(); // Crear una instancia del hook useRouter
+  const router = useRouter(); 
 
   const handleEndTurn = async () => {
     if (!idTurno) {
@@ -24,7 +24,7 @@ const PacienteAtendido = () => {
       });
 
       if (response.data && response.data.success) {
-        setShowModal(true); // Mostrar el modal si la actualización fue exitosa
+        setShowModal(true); 
       } else {
         console.error('Error al actualizar el estado del turno:', response.data);
         setError('No se pudo actualizar el estado del turno');
@@ -45,7 +45,10 @@ const PacienteAtendido = () => {
       </button>
       {showModal && (
         <ModalMedico 
-          onConfirm={() => router.push('../PerfilMedico')}
+          onConfirm={async () => {
+            setShowModal(false); 
+            await router.push('/PerfilMedico'); 
+          }}
           onCancel={() => setShowModal(false)}
         />
       )}

@@ -14,13 +14,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-            <nav className={styles.nav}>
-                <li><Link href="/informacion" className={styles.label}>Sacar turno</Link></li>
-                <li><Link href="/ProximoTurno" className={styles.label}>Proximo turno</Link></li>
-                <li><Link href="/Perfil" className={styles.label}>Perfil</Link></li>
-            </nav>
-           {children}
+        <nav className={styles.nav}>
+          <div className={styles["nav-links"]}>
+            <Link href="/informacion" className={styles["nav-link"]}>Sacar turno</Link>
+            <Link href="/ProximoTurno" className={styles["nav-link"]}>Próximo turno</Link>
+            <Link href="/Perfil" className={styles["nav-link"]}>Perfil</Link>
+          </div>
+        </nav>
+        {children}
       </body>
-      </html>
+    </html>
   );
 }

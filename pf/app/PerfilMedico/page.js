@@ -1,4 +1,3 @@
-// PerfilMedico/page.js
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -41,7 +40,7 @@ const PerfilMedico = () => {
       });
 
       if (response.data.success) {
-        router.push('../PacienteAtendido'); // Redirige a la página PacienteAtendido
+        router.push('/PacienteAtendido'); // Redirige a la página PacienteAtendido
       } else {
         alert('No se pudo actualizar el estado del turno');
       }
