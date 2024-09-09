@@ -6,6 +6,7 @@
     justify-content: flex-start;
     min-height: 100vh;
     background-color: #f2f2f2;
+    padding: 20px;
 }
 
 /* Estilos para el encabezado */
@@ -14,7 +15,7 @@
     flex-direction: column;
     align-items: center;
     background-color: #A01111;
-    padding: 20px 20px 80px; /* Ajuste de padding para la parte roja más pequeña */
+    padding: 40px 10px 100px; /* Aumenta el padding para agrandar el fondo rojo */
     width: 100%;
     text-align: center;
     border-bottom-left-radius: 30px;
@@ -29,111 +30,63 @@
     object-fit: cover;
     border: 3px solid #ffffff;
     position: absolute;
-    bottom: -50px; /* Ajuste para que quede a la mitad entre el header y el contenido */
+    bottom: -50px;
 }
 
 .header h2 {
     color: #ffffff;
-    margin: 60px 0 0; /* Ajuste de margen para el título */
+    margin: 40px 0 0; /* Reduce el margen superior para subir el título */
     font-size: 24px;
 }
 
-/* Estilos para el formulario */
-.form {
-    width: 100%;
-    max-width: 400px;
-    padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    margin-top: 200px; /* Aumentar el margen superior para bajar el formulario */
-    transition: all 0.3s ease;
-}
+/* Estilos específicos para pantallas móviles */
+@media (max-width: 768px) {
+    .header {
+        padding: 30px 30px 70px; /* Ajusta el padding para pantallas móviles */
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
 
-.form:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
+    .header img {
+        width: 80px;
+        height: 80px;
+        bottom: -40px;
+    }
 
-/* Estilos para los grupos de entrada */
-.formGroup {
-    margin-bottom: 20px;
-    position: relative;
-}
+    .header h2 {
+        font-size: 20px;
+        margin: 30px 0 0; /* Reduce aún más el margen superior para móviles */
+    }
 
-.inputContainer {
-    display: flex;
-    align-items: center;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    padding: 10px;
-    background-color: #f9f9f9;
-    transition: all 0.3s ease;
-}
+    .form {
+        width: 90%;
+        max-width: 350px;
+        margin-top: 100px;
+        padding: 15px;
+    }
 
-.inputContainer:focus-within {
-    border-color: #A01111;
-    background-color: #ffffff;
-}
+    .inputContainer {
+        padding: 8px;
+    }
 
-.input {
-    width: 100%;
-    border: none;
-    background: none;
-    outline: none;
-    font-size: 16px;
-    padding-right: 40px; /* Asegura espacio para el ícono */
-}
+    .input {
+        font-size: 14px;
+    }
 
-.editIcon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    font-size: 18px;
-    color: #A01111;
-}
+    .editIcon {
+        font-size: 16px;
+        right: 8px;
+    }
 
-/* Estilos para el botón */
-.button {
-    background-color: #A01111;
-    color: #ffffff;
-    border: none;
-    padding: 15px;
-    width: 100%;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 20px;
-}
+    .button {
+        padding: 12px;
+        font-size: 14px;
+        margin-top: 15px;
+    }
 
-.button:hover {
-    background-color: #b71c1c;
+    .footer {
+        flex-direction: row;
+        padding: 5px 0;
+        margin-top: 15px;
+    }
 }
-
-.imagenRedonda {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    border: 3px solid #ffffff;
-}
-
-/* Estilos para el pie de página */
-.footer {
-    display: flex;
-    justify-content: space-around;
-    padding: 10px 0;
-    background-color: #ffffff;
-    border-top: 1px solid #cccccc;
-    margin-top: 20px;
-}
-
-.footer img {
-    width: 30px;
-    height: 30px;
-    filter: invert(50%);
-}
-

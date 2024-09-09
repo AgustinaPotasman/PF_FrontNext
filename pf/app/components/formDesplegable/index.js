@@ -29,14 +29,20 @@ export default function FormDesplegable({ onSelectArea }) {
 
   return (
     <div className={styles.dropdown}>
-      <form>
-        <select id="opciones" name="opciones" onChange={handleChange} defaultValue="">
+      <form className={styles.formContainer}> {/* Aplica la clase CSS local al form */}
+        <select
+          id="opciones"
+          name="opciones"
+          onChange={handleChange}
+          defaultValue=""
+          className={styles.selectDropdown}  // Aplica la clase CSS local al select
+        >
           <option value="" disabled>Seleccione un área</option>
-          {categorias.map(cat =>  
-            <option key={cat.Id} value={cat.Id}> {/* Asegúrate de que 'Id' sea el nombre correcto */}
+          {categorias.map((cat) => (
+            <option key={cat.Id} value={cat.Id}>
               {cat.Especialidad}
             </option>
-          )}
+          ))}
         </select>
       </form>
     </div>
