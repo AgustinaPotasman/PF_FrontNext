@@ -1,28 +1,36 @@
-/* formDesplegable.module.css */
-
+/* Ajustes generales para el contenedor del select */
 .dropdown {
-  position: relative;
-  display: inline-block;
+  width: 100%;
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
 }
 
-.dropdown select {
+/* Agrega una clase específica para el formulario */
+.formContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Agrega una clase específica al select */
+.selectDropdown {
+  width: 100%;
   padding: 10px;
   font-size: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #ddd;
   border-radius: 4px;
+  background-color: #fff;
+  appearance: none; /* Elimina la flecha por defecto para permitir estilos personalizados */
+  -webkit-appearance: none; /* Para Safari */
+  -moz-appearance: none; /* Para Firefox */
   cursor: pointer;
 }
 
-.dropdown select:hover {
-  border-color: #888;
-}
-
-.dropdown select:focus {
-  outline: none;
-  border-color: #555;
-}
-
-.dropdown form {
-  display: inline-block;
-  margin-left: 10px; /* Ajusta el margen según necesites */
+/* Estilos para pantallas móviles */
+@media (max-width: 768px) {
+  .selectDropdown {
+    font-size: 0.9rem; /* Reduce el tamaño de fuente para pantallas más pequeñas */
+    padding: 8px;
+  }
 }

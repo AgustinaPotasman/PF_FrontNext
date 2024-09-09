@@ -4,7 +4,6 @@ import styles from './form.module.css';
 export default function Form() {
     return (
         <form className={styles.form}>
-
             <div className={styles.formGroup}>
                 <div className={styles.inputContainer}>
                     <input className={styles.input} type="text" placeholder="Nombre y apellido" />
