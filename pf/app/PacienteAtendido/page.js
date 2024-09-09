@@ -46,7 +46,7 @@ const PacienteAtendido = () => {
       {showModal && (
         <ModalMedico 
           onConfirm={async () => {
-            setShowModal(false); 
+            setShowModal(false);
             await router.push('/PerfilMedico'); 
           }}
           onCancel={() => setShowModal(false)}

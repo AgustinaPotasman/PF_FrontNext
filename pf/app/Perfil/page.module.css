@@ -6,7 +6,8 @@
     justify-content: flex-start;
     min-height: 100vh;
     background-color: #f2f2f2;
-    padding: 20px;
+    padding: 0;
+    margin: 0;
 }
 
 /* Estilos para el encabezado */
@@ -15,47 +16,56 @@
     flex-direction: column;
     align-items: center;
     background-color: #A01111;
-    padding: 40px 10px 100px; /* Aumenta el padding para agrandar el fondo rojo */
+    padding: 15px 10px 40px; /* Reduce el padding para un fondo más sutil */
     width: 100%;
     text-align: center;
-    border-bottom-left-radius: 30px;
-    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 15px; /* Reduce el border-radius para bordes más sutiles */
+    border-bottom-right-radius: 15px; /* Reduce el border-radius para bordes más sutiles */
     position: relative;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajusta la sombra para que sea más sutil */
+    margin: 0; /* Asegura que el header toque el borde superior */
 }
 
 .header img {
-    width: 100px;
-    height: 100px;
+    width: 80px; /* Reduce el tamaño de la imagen */
+    height: 80px; /* Reduce el tamaño de la imagen */
     border-radius: 50%;
     object-fit: cover;
     border: 3px solid #ffffff;
     position: absolute;
-    bottom: -50px;
+    bottom: -40px; /* Ajusta la posición de la imagen */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .header h2 {
     color: #ffffff;
-    margin: 40px 0 0; /* Reduce el margen superior para subir el título */
-    font-size: 24px;
+    margin: 50px 0 0; /* Ajusta el margen superior para que el título esté más cerca del fondo rojo */
+    font-size: 22px; /* Ajusta el tamaño de fuente para que el título sea más pequeño */
+    font-weight: 700;
 }
 
 /* Estilos específicos para pantallas móviles */
 @media (max-width: 768px) {
     .header {
-        padding: 30px 30px 70px; /* Ajusta el padding para pantallas móviles */
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
+        padding: 10px 10px 30px; /* Ajusta el padding para pantallas móviles */
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 
     .header img {
-        width: 80px;
-        height: 80px;
-        bottom: -40px;
+        width: 60px;
+        height: 60px;
+        bottom: -30px;
     }
 
     .header h2 {
-        font-size: 20px;
-        margin: 30px 0 0; /* Reduce aún más el margen superior para móviles */
+        font-size: 18px;
+        margin: 30px 0 0;
     }
 
     .form {
@@ -63,30 +73,5 @@
         max-width: 350px;
         margin-top: 100px;
         padding: 15px;
-    }
-
-    .inputContainer {
-        padding: 8px;
-    }
-
-    .input {
-        font-size: 14px;
-    }
-
-    .editIcon {
-        font-size: 16px;
-        right: 8px;
-    }
-
-    .button {
-        padding: 12px;
-        font-size: 14px;
-        margin-top: 15px;
-    }
-
-    .footer {
-        flex-direction: row;
-        padding: 5px 0;
-        margin-top: 15px;
     }
 }

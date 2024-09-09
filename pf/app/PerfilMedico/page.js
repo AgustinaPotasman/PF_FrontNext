@@ -4,10 +4,13 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './page.module.css';
+import ModalMedico from '../components/ModalMedico';
 
 const PerfilMedico = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [idTurno, setIdTurno] = useState(null);
   const router = useRouter();
 
   const fetchData = async () => {
@@ -50,6 +53,21 @@ const PerfilMedico = () => {
     }
   };
 
+  const handleRemovePatient = async (idTurno) => {
+    try {
+      const response = await axios.delete(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`);
+
+      if (response.data.success) {
+        fetchData(); // Actualiza la lista de pacientes
+      } else {
+        setError('No se pudo eliminar el paciente');
+      }
+    } catch (error) {
+      console.error('Error al eliminar el paciente:', error);
+      setError('Error al eliminar el paciente');
+    }
+  };
+
   return (
     <div className={styles.container}>
       <h1>Lista de espera</h1>
@@ -74,6 +92,16 @@ const PerfilMedico = () => {
           ))
         )}
       </div>
+      {showModal && (
+        <ModalMedico 
+          onConfirm={async () => {
+            setShowModal(false);
+            await router.push('/PerfilMedico'); // Redirige a PerfilMedico
+            fetchData(); // Actualiza la lista después de la redirección
+          }}
+          onCancel={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 };

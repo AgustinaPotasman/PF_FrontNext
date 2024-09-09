@@ -1,7 +1,13 @@
-/* En tu archivo globals.css o en el CSS global de tu proyecto */
+/* Archivo globals.css */
 body {
   margin: 0;
   padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; /* Define una fuente por defecto */
+  background-color: #f2f2f2; /* Fondo de la página */
+}
+
+html, body {
+  height: 100%; /* Asegura que el cuerpo ocupe toda la altura de la ventana */
 }
 
 * {
@@ -9,3 +15,4 @@ body {
   padding: 0;
   box-sizing: border-box; /* Asegura que los elementos se dimensionen correctamente */
 }
+
