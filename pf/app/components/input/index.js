@@ -1,13 +1,18 @@
-import styles from "./input.module.css";
+import React from 'react';
+import styles from './input.module.css'; // Importa los estilos
 
-export default function Input({iType , iPlaceholder , iLabel}) {
-    return (<div className={styles.container}>
-        <label className={styles.label}>{iLabel}</label>
-        <input className={styles.input} type={iType} placeholder={iPlaceholder}></input>
-      </div>
-    );
-  }
-  
+const Input = ({ iType, iPlaceholder, value, onChange }) => (
+  <div className={styles.inputContainer}> {/* Contenedor para aplicar margen */}
+    <input 
+      type={iType} 
+      placeholder={iPlaceholder} 
+      value={value} 
+      onChange={onChange} 
+      className={styles.inputField} // Aplica los estilos al input
+    />
+  </div>
+);
 
-  import React from 'react';
+export default Input;
+
 
