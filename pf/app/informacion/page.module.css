@@ -37,3 +37,21 @@
     max-width: 100%; /* Ocupa todo el ancho disponible */
   }
 }
+
+.cancelButton {
+  background-color: #d9534f; 
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 20px;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+}
+
+.cancelButton:hover {
+  background-color: #c9302c; 
+}
