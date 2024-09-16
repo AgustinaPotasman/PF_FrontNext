@@ -1,53 +1,85 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
-import { useRouter } from 'next/navigation'; 
 import styles from './page.module.css';
 import ModalMedico from '../components/ModalMedico';
 
 const PacienteAtendido = () => {
   const [showModal, setShowModal] = useState(false);
-  const [idTurno, setIdTurno] = useState(null);
-  const [error, setError] = useState('');
-  const router = useRouter(); 
+  const router = useRouter();
 
-  const handleEndTurn = async () => {
-    if (!idTurno) {
-      return;
-    }
+  // ID del turno debe ser pasado o gestionado en algún lugar. Este es un ejemplo estático.
+  const idTurno = 1; // Debe ser dinámico basado en la información del turno
 
-    try {
-      const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
-        idTurno: idTurno,
-        nuevoEstadoId: 3 
-      });
-
-      if (response.data && response.data.success) {
-        setShowModal(true); 
-      } else {
-        console.error('Error al actualizar el estado del turno:', response.data);
-        setError('No se pudo actualizar el estado del turno');
-      }
-    } catch (error) {
-      console.error('Error al finalizar el turno:', error);
-      setError('Error al finalizar el turno');
-    }
+  const patientData = {
+    pacientenombre: 'Agustina Potasman',
+    email: 'agustinapotasman@gmail.com',
+    guardianombre: 'Pediatría',
+    sintomas: 'Me duele la panza',
+    foto: "/img/mujer.jpg"
   };
+
+  // PacienteAtendido.js
+const handleEndTurn = async () => {
+  setShowModal(false);
+  try {
+    const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
+      nuevoEstadoId: 3 // ID del estado "Finalizado"
+    });
+
+    if (response.data.success) {
+      await router.push('/PerfilMedico');
+    } else {
+      alert('No se pudo finalizar el turno');
+    }
+  } catch (error) {
+    console.error('Error al finalizar el turno:', error);
+    alert('Error al finalizar el turno');
+  }
+};
+
 
   return (
     <div className={styles.container}>
-      <h1>El paciente está siendo atendido</h1>
-      <p>¿Terminar el turno?</p>
-      {error && <p className={styles.error}>{error}</p>}
+      <div className={styles.header}></div>
+      
+      <img src={patientData.foto} alt="Foto del paciente" className={styles.patientImage} />
+      
+      {patientData ? (
+        <div className={styles.patientDetails}>
+          <p><strong>Nombre:</strong> {patientData.pacientenombre}</p>
+          <p><strong>Email:</strong> {patientData.email}</p>
+          <p><strong>Guardia:</strong> {patientData.guardianombre}</p>
+          <p><strong>Síntomas:</strong> {patientData.sintomas}</p>
+        </div>
+      ) : (
+        <p>Cargando datos del paciente...</p>
+      )}
+
       <button onClick={handleEndTurn} className={styles.endButton}>
-        Sí, finalizar turno
+        Finalizar turno
       </button>
+
       {showModal && (
-        <ModalMedico 
+        <ModalMedico
           onConfirm={async () => {
             setShowModal(false);
-            await router.push('/PerfilMedico'); 
+            try {
+              const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
+                nuevoEstadoId: 3 // ID del estado "Finalizado"
+              });
+
+              if (response.data.success) {
+                await router.push('/PerfilMedico');
+              } else {
+                alert('No se pudo finalizar el turno');
+              }
+            } catch (error) {
+              console.error('Error al finalizar el turno:', error);
+              alert('Error al finalizar el turno');
+            }
           }}
           onCancel={() => setShowModal(false)}
         />

@@ -33,15 +33,14 @@ const PerfilMedico = () => {
 
   const handleCallPatient = async (patientName, idTurno) => {
     if (!idTurno) {
-      return; // Elimina la alerta de ID de turno no válido
+      return;
     }
-
+  
     try {
       const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
-        idTurno: idTurno,
-        nuevoEstadoId: 2 // ID del estado "Atendiendo"
+        nuevoEstadoId: 2 // Cambia el estado del turno a "Atendiendo" (2)
       });
-
+  
       if (response.data.success) {
         router.push('/PacienteAtendido'); // Redirige a la página PacienteAtendido
       } else {
@@ -52,7 +51,7 @@ const PerfilMedico = () => {
       alert('Error al actualizar el estado del turno');
     }
   };
-
+  
   const handleRemovePatient = async (idTurno) => {
     try {
       const response = await axios.delete(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`);
@@ -96,8 +95,8 @@ const PerfilMedico = () => {
         <ModalMedico 
           onConfirm={async () => {
             setShowModal(false);
-            await router.push('/PerfilMedico'); // Redirige a PerfilMedico
-            fetchData(); // Actualiza la lista después de la redirección
+            await router.push('/PerfilMedico');
+            fetchData(); 
           }}
           onCancel={() => setShowModal(false)}
         />
