@@ -1,86 +1,32 @@
-/* Contenedor principal */
-.container {
+.timerContainer {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #f0f0f0;
-  min-height: calc(100vh - 50px); /* Ajusta la altura mínima para compensar el margen superior */
-  box-sizing: border-box;
-  gap: 20px; /* Espacio entre los componentes */
-  margin: 0; /* Elimina el margen superior */
-}
-
-/* Estilo del círculo con temporizador */
-.timerWrapper {
-  width: 150px;
-  height: 150px;
-  border: 10px solid #b71c1c; /* Borde rojo */
-  border-radius: 50%; /* Hace que el div sea circular */
-  display: flex;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.circle {
+  display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.turnoInfo {
   background-color: white;
-}
-
-/* Contenedor del botón */
-.botonContainer {
-  width: 100%;
-  max-width: 400px;
-  margin: 20px 0; /* Margen superior e inferior */
-}
-
-/* Estilos del botón */
-.fullWidthButton {
-  width: 100%;
   padding: 15px;
-  background-color: #c62828;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.fullWidthButton:hover {
-  background-color: #b71c1c;
-}
-
-/* Estilos del modal */
-.modalBackdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modalContent {
-  width: 100%; /* Usar el ancho completo */
-  max-width: 400px; /* Ajustar al mismo máximo ancho */
-  background: white;
-  padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
 }
 
-.modalHeader {
-  margin-bottom: 20px;
+.turnoInfo p {
+  margin: 5px 0;
+  color: #333;
 }
 
-.modalTitle {
-  margin: 0;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.modalFooter {
-  display: flex;
-  justify-content: flex-end; /* Ajusta el contenido del pie de página del modal */
-  gap: 10px; /* Espaciado entre botones del modal */
-}

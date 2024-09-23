@@ -15,7 +15,7 @@ const PerfilMedico = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/listaEspera/1');
+      const response = await axios.get('http://localhost:3000/api/listaEspera/3');
       if (Array.isArray(response.data)) {
         setData(response.data);
       } else {
