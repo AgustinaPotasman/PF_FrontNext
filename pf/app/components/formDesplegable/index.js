@@ -1,7 +1,7 @@
 // formDesplegable.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import styles from "./formDesplegable.module.css";
+import styles from "./styles.module.css";  // Asegúrate de importar el CSS correcto
 
 export default function FormDesplegable({ onSelectArea }) {
   const [categorias, setCategorias] = useState([]);
@@ -9,24 +9,30 @@ export default function FormDesplegable({ onSelectArea }) {
   useEffect(() => {
     axios.get("http://localhost:3000/api/areas")
       .then(response => {
-        console.log("Datos recibidos de la API:", response.data); // Verifica los datos recibidos
-        setCategorias(response.data); // Guardamos las categorías recibidas
+        console.log("Datos recibidos de la API:", response.data);
+        setCategorias(response.data);
       })
       .catch(error => {
-        console.error('Error fetching categorias:', error); // Manejo de errores
+        console.error('Error fetching categorias:', error);
       });
   }, []);
 
   const handleChange = (event) => {
-    const selectedId = Number(event.target.value); // Convertimos el valor seleccionado a número
-    console.log("ID convertido (en handleChange):", selectedId); // Verificamos que el ID convertido sea correcto
-    onSelectArea(!isNaN(selectedId) ? selectedId : null); // Actualizamos el área seleccionada
+    const selectedId = Number(event.target.value); 
+    console.log("ID convertido (en handleChange):", selectedId); 
+    onSelectArea(!isNaN(selectedId) ? selectedId : null); 
   };
 
   return (
-    <div className={styles.dropdown}>
-      <form>
-        <select id="opciones" name="opciones" onChange={handleChange} defaultValue="">
+    <div className={styles.dropdownContainer}>
+      <form className={styles.formContainer}>
+        <select 
+          id="opciones" 
+          name="opciones" 
+          onChange={handleChange} 
+          defaultValue="" 
+          className={styles.selectDropdown}
+        >
           <option value="" disabled>Seleccione un área</option>
           {categorias.map(cat =>  
             <option key={cat.Id} value={cat.Id}>

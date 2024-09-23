@@ -1,41 +1,50 @@
-'use client';
+import React, { useState, useEffect } from 'react';
+import styles from './timer.module.css';
+import Timer from './Timer';  
+import axios from 'axios';
 
-import React, { useState } from 'react';
-import Timer from '../components/timer';
-import TurnoInfo from '../components/TurnoInfo';
-import Footer from '../components/footer';
-import styles from './page.module.css';
-import Boton from '../components/boton';
-import ModalCancelacion from '../components/ModalCancelacion';
-import FormDesplegable from '../components/formDesplegable';
+const ProximoTurno = ({ idArea, sintomas }) => {
+  const [tiempoMultiplicado, setTiempoMultiplicado] = useState(null);
+  const [error, setError] = useState(null);
 
-export default function ProximoTurno() {
-    const [openAlert, setOpenAlert] = useState(false);
+  useEffect(() => {
+    if (!idArea) return;
 
-    const handleOpenAlert = () => {
-        console.log('Abriendo modal');
-        setOpenAlert(true);
+    const fetchData = async () => {
+      try {
+        const tiempoResponse = await axios.get(`http://localhost:3000/api/tiempoEspera/${idArea}`);
+        const cantidadResponse = await axios.get(`http://localhost:3000/api/cantidadPersonas/${idArea}`);
+        const tiempoEspera = parseFloat(tiempoResponse.data[0]?.TiempoEspera || 0);
+        const cantidadPersonas = cantidadResponse.data.cantidadPersonas || 0;
+
+        const tiempoFinal = tiempoEspera * cantidadPersonas;
+        setTiempoMultiplicado(tiempoFinal);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setError('Hubo un error al obtener los datos.');
+      }
     };
 
-    const handleCloseAlert = () => {
-        console.log('Cerrando modal');
-        setOpenAlert(false);
-    };
+    fetchData();
+  }, [idArea]);
 
-
-    return (
-        <div className={styles.container}>
-            <Timer />
-            <TurnoInfo />
-            <div className={styles.commonWidth}>
-                <Boton sendText="siguiente" onClick={handleOpenAlert} />
-            </div>
-            {openAlert && (
-        <ModalCancelacion onClose={handleCloseAlert}>
-          <div>Contenido del modal</div>
-          <button onClick={handleCloseAlert}>Cerrar</button>
-        </ModalCancelacion>)}
-            <Footer />
+  return (
+    <div className={styles.timerContainer}>
+      {error ? (
+        <p className={styles.error}>{error}</p>
+      ) : tiempoMultiplicado !== null ? (
+        <div className={styles.circle}>
+          <Timer tiempoMultiplicado={tiempoMultiplicado} />
+          <div className={styles.turnoInfo}>
+            <p>Turno de: {idArea}</p>
+            <p>Síntomas: {sintomas}</p>
+          </div>
         </div>
-    );
-}
+      ) : (
+        <p>Cargando...</p>
+      )}
+    </div>
+  );
+};
+
+export default ProximoTurno;
