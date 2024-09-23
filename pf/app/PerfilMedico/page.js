@@ -52,20 +52,6 @@ const PerfilMedico = () => {
     }
   };
   
-  const handleRemovePatient = async (idTurno) => {
-    try {
-      const response = await axios.delete(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`);
-
-      if (response.data.success) {
-        fetchData(); // Actualiza la lista de pacientes
-      } else {
-        setError('No se pudo eliminar el paciente');
-      }
-    } catch (error) {
-      console.error('Error al eliminar el paciente:', error);
-      setError('Error al eliminar el paciente');
-    }
-  };
 
   return (
     <div className={styles.container}>
