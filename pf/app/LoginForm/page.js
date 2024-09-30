@@ -1,13 +1,10 @@
-
-
-
 "use client";
 
 import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
-import { UserContext } from "./components/UserContext/UserContext";
-
+import { UserContext } from "../components/UserContext/UserContext";
+import Footer from '../Components/Footer/index'
 
 export default function LoginForm() {
   const [activeTab, setActiveTab] = useState('login');
@@ -27,7 +24,7 @@ export default function LoginForm() {
     };
     localStorage.setItem('user', JSON.stringify(user));  
     setUser(user);  
-    router.push('/Home');  
+    router.push('/');  
   };
 
   return (
@@ -107,6 +104,7 @@ export default function LoginForm() {
         )}
       </div>
     </div>
+    <Footer/>
     </div>
     </>
   );

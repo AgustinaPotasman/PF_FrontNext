@@ -1,7 +1,8 @@
+"use client"
+
 import React, { useState, useEffect } from 'react';
-import styles from './timer.module.css';
-import Timer from './Timer';  
 import axios from 'axios';
+import Timer from "./Components/Timer"
 
 const ProximoTurno = ({ idArea, sintomas }) => {
   const [tiempoMultiplicado, setTiempoMultiplicado] = useState(null);
