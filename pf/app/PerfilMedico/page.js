@@ -4,18 +4,15 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './page.module.css';
-import ModalMedico from '../components/ModalMedico';
 
 const PerfilMedico = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
-  const [showModal, setShowModal] = useState(false);
-  const [idTurno, setIdTurno] = useState(null);
   const router = useRouter();
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/listaEspera/3');
+      const response = await axios.get('http://localhost:3000/api/listaEspera/2');
       if (Array.isArray(response.data)) {
         setData(response.data);
       } else {
@@ -42,6 +39,8 @@ const PerfilMedico = () => {
       });
   
       if (response.data.success) {
+        // Guardar en localStorage que el paciente está siendo atendido
+        localStorage.setItem('isCalling', 'true');
         router.push('/PacienteAtendido'); // Redirige a la página PacienteAtendido
       } else {
         alert('No se pudo actualizar el estado del turno');
@@ -77,16 +76,6 @@ const PerfilMedico = () => {
           ))
         )}
       </div>
-      {showModal && (
-        <ModalMedico 
-          onConfirm={async () => {
-            setShowModal(false);
-            await router.push('/PerfilMedico');
-            fetchData(); 
-          }}
-          onCancel={() => setShowModal(false)}
-        />
-      )}
     </div>
   );
 };

@@ -10,7 +10,6 @@ const PacienteAtendido = () => {
   const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
-  // ID del turno debe ser dinámico en la implementación real
   const idTurno = 1; 
 
   const patientData = {

@@ -5,6 +5,7 @@ import styles from './Timer.module.css';
 
 const Timer = ({ idArea }) => {
   const [tiempoMultiplicado, setTiempoMultiplicado] = useState(null);
+  const [cantidadPersonas, setCantidadPersonas] = useState(null);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -16,10 +17,11 @@ const Timer = ({ idArea }) => {
         const cantidadResponse = await axios.get(`http://localhost:3000/api/cantidadPersonas/${idArea}`);
         
         const tiempoEspera = parseFloat(tiempoResponse.data[0]?.TiempoEspera || 0);
-        const cantidadPersonas = cantidadResponse.data.cantidadPersonas || 0;
+        const cantidadPersonasData = cantidadResponse.data.cantidadPersonas || 0;
 
-        const tiempoFinal = tiempoEspera * cantidadPersonas; // tiempo en minutos
-        setTiempoMultiplicado(tiempoFinal); // Setea el tiempo final
+        setCantidadPersonas(cantidadPersonasData);
+        const tiempoFinal = tiempoEspera * cantidadPersonasData; 
+        setTiempoMultiplicado(tiempoFinal);
       } catch (error) {
         console.error('Error fetching data:', error);
         setError('Hubo un error al obtener los datos.');
@@ -33,7 +35,7 @@ const Timer = ({ idArea }) => {
     return <p className={styles.error}>{error}</p>;
   }
 
-  if (tiempoMultiplicado === null) {
+  if (tiempoMultiplicado === null || cantidadPersonas === null) {
     return <p>Cargando...</p>;
   }
 
@@ -64,10 +66,13 @@ const Timer = ({ idArea }) => {
                   {`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`}
                 </div>
                 <div className={styles.minutesText}>minutos</div>
-                </>
+              </>
             );
           }}
         </CountdownCircleTimer>
+      </div>
+      <div className={styles.pacientesInfo}>
+        <p>Cantidad de personas esperando: <strong>{cantidadPersonas}</strong></p>
       </div>
     </div>
   );
