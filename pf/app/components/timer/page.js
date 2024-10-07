@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
@@ -10,27 +10,33 @@ const Timer = ({ idArea }) => {
   const [cantidadPersonas, setCantidadPersonas] = useState(null);
   const [error, setError] = useState(null);
 
+  const fetchData = async () => {
+    try {
+      const tiempoResponse = await axios.get(`http://localhost:3000/api/tiempoEspera/${idArea}`);
+      const cantidadResponse = await axios.get(`http://localhost:3000/api/cantidadPersonas/${idArea}`);
+
+      const tiempoEspera = parseFloat(tiempoResponse.data[0]?.TiempoEspera || 0);
+      const cantidadPersonasData = cantidadResponse.data.cantidadPersonas || 0;
+
+      setCantidadPersonas(cantidadPersonasData);
+      const tiempoFinal = tiempoEspera * cantidadPersonasData;
+      setTiempoMultiplicado(tiempoFinal);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setError('Hubo un error al obtener los datos.');
+    }
+  };
+
   useEffect(() => {
     if (!idArea) return;
 
-    const fetchData = async () => {
-      try {
-        const tiempoResponse = await axios.get(`http://localhost:3000/api/tiempoEspera/${idArea}`);
-        const cantidadResponse = await axios.get(`http://localhost:3000/api/cantidadPersonas/${idArea}`);
-        
-        const tiempoEspera = parseFloat(tiempoResponse.data[0]?.TiempoEspera || 0);
-        const cantidadPersonasData = cantidadResponse.data.cantidadPersonas || 0;
+    fetchData(); // Cargar los datos inicialmente
 
-        setCantidadPersonas(cantidadPersonasData);
-        const tiempoFinal = tiempoEspera * cantidadPersonasData; 
-        setTiempoMultiplicado(tiempoFinal);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setError('Hubo un error al obtener los datos.');
-      }
-    };
+    const interval = setInterval(() => {
+      fetchData(); // Actualizar los datos cada 5 segundos
+    }, 5000);
 
-    fetchData();
+    return () => clearInterval(interval); // Limpiar el intervalo al desmontar
   }, [idArea]);
 
   if (error) {
@@ -41,7 +47,7 @@ const Timer = ({ idArea }) => {
     return <p>Cargando...</p>;
   }
 
-  const durationInSeconds = tiempoMultiplicado * 60; 
+  const durationInSeconds = tiempoMultiplicado * 60;
 
   return (
     <div className={styles.timerContainer}>

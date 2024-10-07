@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -26,22 +26,24 @@ const PerfilMedico = () => {
 
   useEffect(() => {
     fetchData();
-  }, []); // Vacío para que solo se ejecute al montar el componente
+  }, []);
 
   const handleCallPatient = async (patientName, idTurno) => {
     if (!idTurno) {
+      alert('ID de turno no válido');
       return;
     }
-  
+
     try {
       const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
-        nuevoEstadoId: 2 // Cambia el estado del turno a "Atendiendo" (2)
+        nuevoEstadoId: 2 
       });
-  
+
       if (response.data.success) {
-        // Guardar en localStorage que el paciente está siendo atendido
-        localStorage.setItem('isCalling', 'true');
-        router.push('/PacienteAtendido'); // Redirige a la página PacienteAtendido
+    
+        localStorage.setItem('idTurno', idTurno);
+        console.log(idTurno);
+        router.push('/PacienteAtendido'); 
       } else {
         alert('No se pudo actualizar el estado del turno');
       }
@@ -50,7 +52,6 @@ const PerfilMedico = () => {
       alert('Error al actualizar el estado del turno');
     }
   };
-  
 
   return (
     <div className={styles.container}>

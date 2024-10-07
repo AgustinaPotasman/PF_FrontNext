@@ -7,7 +7,7 @@ import styles from './page.module.css';
 import FormDesplegable from '../components/formDesplegable';
 import Boton from '../components/boton';
 import Footer from '../components/footer';
-import ProximoTurno from '../components/timer';
+import ProximoTurno from '../components/timer/page';
 import axios from 'axios';
 
 export default function Informacion() {
