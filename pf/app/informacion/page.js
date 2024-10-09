@@ -17,8 +17,8 @@ export default function Informacion() {
   const [turnoId, setTurnoId] = useState(null);  
   const [estadoTurno, setEstadoTurno] = useState('');
   const [isPlaying, setIsPlaying] = useState(true); 
+  const [finalizado, setFinalizado] = useState(false); // Nuevo estado para controlar la finalización
 
-  
   useEffect(() => {
     const interval = setInterval(async () => {
       if (turnoId) {  
@@ -29,9 +29,15 @@ export default function Informacion() {
           const estado = response.data["idEstadoTurno"]; 
           console.log(estado);
 
-          if (estado == 2) { 
+          if (estado === 2) { 
             setEstadoTurno('Está siendo atendido');
-            setIsPlaying(false); 
+            setIsPlaying(true); 
+            setFinalizado(false); // No está finalizado
+          } else if (estado === 3) {
+            setEstadoTurno('Finalizó su consulta');
+            setMostrarProximoTurno(false); // Oculta el timer
+            setIsPlaying(false);
+            setFinalizado(true); // Está finalizado
           }
         } catch (error) {
           console.error('Error al obtener el estado del turno:', error);
@@ -110,7 +116,8 @@ export default function Informacion() {
       ) : (
         <>
           <p>{estadoTurno}</p>
-          <ProximoTurno idArea={selectedAreaId} isPlaying={isPlaying} /> 
+          {!finalizado && isPlaying && <ProximoTurno idArea={selectedAreaId} isPlaying={isPlaying} />}
+          {finalizado && <p>Finalizó su consulta</p>} {/* Mensaje de finalización */}
           <Boton sendText="Cancelar Turno" onClick={handleCancelTurno} />
         </>
       )}

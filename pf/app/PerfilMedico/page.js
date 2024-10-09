@@ -40,9 +40,8 @@ const PerfilMedico = () => {
       });
 
       if (response.data.success) {
-    
-        localStorage.setItem('idTurno', idTurno);
-        console.log(idTurno);
+        localStorage.setItem('idTurno', idTurno); 
+        console.log('ID Turno guardado:', idTurno);
         router.push('/PacienteAtendido'); 
       } else {
         alert('No se pudo actualizar el estado del turno');

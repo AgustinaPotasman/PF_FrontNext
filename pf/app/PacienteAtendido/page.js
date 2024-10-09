@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './page.module.css';
-import ModalMedico from '../components/ModalMedico';
+import Modal from '../components/ModalMedico'; 
 
 const PacienteAtendido = () => {
   const [showModal, setShowModal] = useState(false);
@@ -13,38 +13,36 @@ const PacienteAtendido = () => {
   
   useEffect(() => {
     const storedIdTurno = localStorage.getItem('idTurno');
-    setIdTurno(storedIdTurno);
-
-    console.log('Valor de idTurno al montar el componente:', storedIdTurno);
-    if (storedIdTurno === null) {
-      console.error('ID Turno es undefined');
-    } else if (isNaN(storedIdTurno)) {
-      console.error('El ID del turno no es un número válido:', storedIdTurno);
+    if (storedIdTurno) {
+      setIdTurno(Number(storedIdTurno));
+      console.log('ID Turno:', Number(storedIdTurno));
     } else {
-      console.log('ID Turno es válido:', storedIdTurno);
+      console.error('ID Turno es undefined');
     }
-    console.log(storedIdTurno);
   }, []);
+  
   const handleEndTurn = () => {
     setShowModal(true);
   };
 
   const handleConfirmEndTurn = async () => {
+    console.log('Confirmar fin de turno, ID Turno:', idTurno); 
     if (!idTurno) {
       alert('ID de turno inválido');
       return;
     }
-    console.log(idTurno)
+    
     try {
+      console.log(`Haciendo PUT a /api/actualizarEstadoTurno/${idTurno}`); 
       const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
         nuevoEstadoId: 3 
       });
       console.log('Respuesta:', response.data);
 
       if (response.data.success) {
-        await router.push('/PerfilMedico');
+        // Mueve la redirección aquí
+        router.push('/PerfilMedico');
       } else {
-        
         alert('No se pudo finalizar el turno: ' + response.data.message || 'Error desconocido');
       }
     } catch (error) {
@@ -53,6 +51,10 @@ const PacienteAtendido = () => {
     } finally {
       setShowModal(false);
     }
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -71,9 +73,10 @@ const PacienteAtendido = () => {
       </button>
 
       {showModal && (
-        <ModalMedico
-          onConfirm={handleConfirmEndTurn}
-          onCancel={() => setShowModal(false)}
+        <Modal 
+          idTurno={idTurno}
+          onConfirm={handleConfirmEndTurn} // Pasa la función de confirmación
+          onCancel={handleCloseModal}
         />
       )}
     </div>

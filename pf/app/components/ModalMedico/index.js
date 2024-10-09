@@ -1,17 +1,17 @@
 import React from 'react';
-import axios from 'axios'; // Asegúrate de importar axios
+import axios from 'axios';
 import styles from './ModalMedico.module.css';
 
 const ModalMedico = ({ idTurno, onConfirm, onCancel, message = "¿Deseas finalizar el turno?" }) => {
+
   const handleConfirm = async () => {
     try {
-      // Llamada a la API para cambiar el estado del turno a 3 (finalizado)
       const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
-        nuevoEstadoId: 3, // Estado "Finalizado"
+        nuevoEstadoId: 3, 
       });
 
       if (response.data.success) {
-        onConfirm(); // Si se actualiza correctamente, ejecuta la función onConfirm
+        onConfirm(); 
       } else {
         alert('No se pudo actualizar el estado del turno');
       }
