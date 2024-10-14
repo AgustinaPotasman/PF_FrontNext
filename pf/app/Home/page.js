@@ -23,7 +23,7 @@ export default function HomePage() {
 
   return (
     <div className={styles.pageContainer}>
-      {/* Aquí se incluye el LoginForm antes del contenido principal */}
+
 
       {!showMap ? (
         <>

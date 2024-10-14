@@ -14,36 +14,31 @@ export default function Informacion() {
   const [selectedAreaId, setSelectedAreaId] = useState(null);
   const [sintomas, setSintomas] = useState('');
   const [mostrarProximoTurno, setMostrarProximoTurno] = useState(false);
-  const [turnoId, setTurnoId] = useState(null);  
+  const [turnoId, setTurnoId] = useState(null);
   const [estadoTurno, setEstadoTurno] = useState('');
-  const [isPlaying, setIsPlaying] = useState(true); 
-  const [finalizado, setFinalizado] = useState(false); // Nuevo estado para controlar la finalización
+  const [finalizado, setFinalizado] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(async () => {
-      if (turnoId) {  
+      if (turnoId) {
         try {
           const response = await axios.get(`http://localhost:3000/api/unTurno/${turnoId}`);
-          console.log('Respuesta de la API:', response.data); 
+          const estado = response.data["idEstadoTurno"];
 
-          const estado = response.data["idEstadoTurno"]; 
-          console.log(estado);
-
-          if (estado === 2) { 
+          if (estado === 2) {
             setEstadoTurno('Está siendo atendido');
-            setIsPlaying(true); 
-            setFinalizado(false); // No está finalizado
+            setFinalizado(false);
           } else if (estado === 3) {
             setEstadoTurno('Finalizó su consulta');
-            setMostrarProximoTurno(false); // Oculta el timer
-            setIsPlaying(false);
-            setFinalizado(true); // Está finalizado
+            setMostrarProximoTurno(false);
+            setFinalizado(true);
+            setTurnoId(null);
           }
         } catch (error) {
           console.error('Error al obtener el estado del turno:', error);
         }
       }
-    }, 5000); 
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [turnoId]);
@@ -72,8 +67,11 @@ export default function Informacion() {
         });
 
         const turnoNuevo = response.data;
-        setTurnoId(turnoNuevo.Id);  
-        setMostrarProximoTurno(true);  
+        setTurnoId(turnoNuevo.Id);
+        setMostrarProximoTurno(true);
+        setEstadoTurno('');
+        setSintomas('');
+        setFinalizado(false);
       } catch (error) {
         console.error('Error al crear el turno:', error);
         alert('Hubo un error al crear el turno. Inténtalo de nuevo.');
@@ -88,8 +86,12 @@ export default function Informacion() {
       try {
         await axios.delete(`http://localhost:3000/api/borrarTurno/${turnoId}`);
         alert('Turno cancelado exitosamente.');
-        setTurnoId(null);  
-        setMostrarProximoTurno(false);  
+        setTurnoId(null);
+        setMostrarProximoTurno(false);
+        setEstadoTurno('');
+        setFinalizado(false);
+        setSintomas('');
+        setSelectedAreaId(null);
       } catch (error) {
         console.error('Error al cancelar el turno:', error);
         alert('Hubo un error al cancelar el turno. Inténtalo de nuevo.');
@@ -105,20 +107,20 @@ export default function Informacion() {
         <>
           <Titulo params="Información" />
           <FormDesplegable onSelectArea={handleSelectArea} />
-          <Input 
-            iType="text" 
-            iPlaceholder="Ingrese sus síntomas" 
-            value={sintomas}  
-            onChange={handleInputChange} 
+          <Input
+            iType="text"
+            iPlaceholder="Ingrese sus síntomas"
+            value={sintomas}
+            onChange={handleInputChange}
           />
           <Boton sendText="Siguiente" onClick={handleNext} />
         </>
       ) : (
         <>
           <p>{estadoTurno}</p>
-          {!finalizado && isPlaying && <ProximoTurno idArea={selectedAreaId} isPlaying={isPlaying} />}
-          {finalizado && <p>Finalizó su consulta</p>} {/* Mensaje de finalización */}
-          <Boton sendText="Cancelar Turno" onClick={handleCancelTurno} />
+          {!finalizado && <ProximoTurno idArea={selectedAreaId} idTurno={turnoId} />}
+          {finalizado && <p>Finalizó su consulta</p>}
+          {!finalizado && <Boton sendText="Cancelar Turno" onClick={handleCancelTurno} />}
         </>
       )}
       <Footer />

@@ -32,7 +32,7 @@ export default function LoginForm() {
 
       if (response.ok) {
         localStorage.setItem('user', JSON.stringify(data.user));
-        setUser(data.user);  // Guarda el usuario en el contexto
+        setUser(data.user);  
         router.push('/Home');
       } else {
         alert('Credenciales inválidas');
@@ -54,7 +54,6 @@ export default function LoginForm() {
     const telefono = event.target.registerTelefono.value.trim();
     const foto = event.target.registerFoto.value.trim();
   
-    // Validación de campos vacíos
     if (!name || !lastname || !email || !dni || !obraSocial || !password || !repeatPassword || !telefono || !foto) {
       alert('Todos los campos son obligatorios');
       return;
@@ -78,7 +77,7 @@ export default function LoginForm() {
   
       if (response.ok) {
         alert('Usuario registrado con éxito');
-        setActiveTab('login');  // Cambiar a la pestaña de login
+        setActiveTab('login'); 
       } else {
         alert(data.error || 'Error al registrar usuario');
       }

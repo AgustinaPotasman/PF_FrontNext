@@ -9,6 +9,7 @@ import Modal from '../components/ModalMedico';
 const PacienteAtendido = () => {
   const [showModal, setShowModal] = useState(false);
   const [idTurno, setIdTurno] = useState(null);
+  const [paciente, setPaciente] = useState(null); 
   const router = useRouter();
   
   useEffect(() => {
@@ -16,11 +17,25 @@ const PacienteAtendido = () => {
     if (storedIdTurno) {
       setIdTurno(Number(storedIdTurno));
       console.log('ID Turno:', Number(storedIdTurno));
+      fetchPaciente(Number(storedIdTurno));
     } else {
       console.error('ID Turno es undefined');
     }
   }, []);
   
+  const fetchPaciente = async (idTurno) => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/unTurno/${idTurno}`);
+      if (response.data) {
+        setPaciente(response.data);
+      } else {
+        console.error('Paciente no encontrado');
+      }
+    } catch (error) {
+      console.error('Error al obtener la información del paciente:', error);
+    }
+  };
+
   const handleEndTurn = () => {
     setShowModal(true);
   };
@@ -40,7 +55,6 @@ const PacienteAtendido = () => {
       console.log('Respuesta:', response.data);
 
       if (response.data.success) {
-        // Mueve la redirección aquí
         router.push('/PerfilMedico');
       } else {
         alert('No se pudo finalizar el turno: ' + response.data.message || 'Error desconocido');
@@ -61,12 +75,13 @@ const PacienteAtendido = () => {
     <div className={styles.container}>
       <img src={'/img/mujer.jpg'} alt="Foto del paciente" className={styles.patientImage} />
 
-      <div className={styles.patientDetails}>
-        <p><strong>Nombre:</strong> Agustina Potasman</p>
-        <p><strong>Email:</strong> agustinapotasman@gmail.com</p>
-        <p><strong>Guardia:</strong> Pediatría</p>
-        <p><strong>Síntomas:</strong> Me duele la panza</p>
-      </div>
+      {paciente && ( 
+        <div className={styles.patientDetails}>
+          <p><strong>Nombre:</strong> {paciente.Nombre} {paciente.Apellido}</p>
+          <p><strong>Email:</strong> {paciente.Gmail}</p>
+          <p><strong>Síntomas:</strong> {paciente.Sintomas}</p>
+        </div>
+      )}
 
       <button onClick={handleEndTurn} className={styles.endButton}>
         Finalizar turno
@@ -75,7 +90,7 @@ const PacienteAtendido = () => {
       {showModal && (
         <Modal 
           idTurno={idTurno}
-          onConfirm={handleConfirmEndTurn} // Pasa la función de confirmación
+          onConfirm={handleConfirmEndTurn} 
           onCancel={handleCloseModal}
         />
       )}

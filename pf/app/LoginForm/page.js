@@ -4,7 +4,7 @@ import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 import { UserContext } from "../components/UserContext/UserContext";
-import Footer from '../Components/Footer/index'
+import Footer from './Components/footer'
 
 export default function LoginForm() {
   const [activeTab, setActiveTab] = useState('login');

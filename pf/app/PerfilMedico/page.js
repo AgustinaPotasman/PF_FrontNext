@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './page.module.css';
+import Boton from '../components/boton';
 
 const PerfilMedico = () => {
   const [data, setData] = useState([]);
@@ -66,12 +67,7 @@ const PerfilMedico = () => {
               <div className={styles.name}>{item.pacientenombre}</div>
               <div className={styles.area}>{item.area}</div>
               <div className={styles.medico}>{item.mediconombre}</div>
-              <button
-                className={styles.callButton}
-                onClick={() => handleCallPatient(item.pacientenombre, item.idturno)}
-              >
-                Llamar paciente
-              </button>
+              <Boton sendText={"Llamar paciente"} onClick={() => handleCallPatient(item.pacientenombre, item.idturno)}></Boton>
             </div>
           ))
         )}
