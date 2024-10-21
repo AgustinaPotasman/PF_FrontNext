@@ -7,7 +7,8 @@ import { UserContext } from "./components/UserContext/UserContext";
 
 export default function LoginForm() {
   const [activeTab, setActiveTab] = useState('login');
-  const { setUser } = useContext(UserContext);  
+  const [isDoctor, setIsDoctor] = useState(false);  // Nuevo estado para el switch
+  const { setUser } = useContext(UserContext);
   const router = useRouter();
 
   const handleTabChange = (tab) => {
@@ -32,7 +33,7 @@ export default function LoginForm() {
 
       if (response.ok) {
         localStorage.setItem('user', JSON.stringify(data.user));
-        setUser(data.user);  
+        setUser(data.user);
         router.push('/Home');
       } else {
         alert('Credenciales inválidas');
@@ -48,36 +49,32 @@ export default function LoginForm() {
     const lastname = event.target.registerLastname.value.trim();
     const email = event.target.registerEmail.value.trim();
     const dni = event.target.registerDNI.value.trim();
-    const obraSocial = event.target.registerObraSocial.value.trim();
     const password = event.target.registerPassword.value;
-    const repeatPassword = event.target.registerRepeatPassword.value;
     const telefono = event.target.registerTelefono.value.trim();
     const foto = event.target.registerFoto.value.trim();
-  
-    if (!name || !lastname || !email || !dni || !obraSocial || !password || !repeatPassword || !telefono || !foto) {
+    const obraSocial = isDoctor ? null : event.target.registerObraSocial?.value.trim();
+
+
+    if (!name || !lastname || !email || !dni || !password || !telefono || !foto || (!isDoctor && !obraSocial)) {
       alert('Todos los campos son obligatorios');
       return;
     }
-  
-    if (password !== repeatPassword) {
-      alert('Las contraseñas no coinciden');
-      return;
-    }
-  
+
+
     try {
       const response = await fetch('http://localhost:3000/api/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, lastname, email, dni, obraSocial, password, telefono, foto }),
+        body: JSON.stringify({ name, lastname, email, dni, password, telefono, foto, obraSocial, isDoctor }),
       });
-      
+
       const data = await response.json();
-  
+
       if (response.ok) {
         alert('Usuario registrado con éxito');
-        setActiveTab('login'); 
+        setActiveTab('login');
       } else {
         alert(data.error || 'Error al registrar usuario');
       }
@@ -86,6 +83,7 @@ export default function LoginForm() {
       alert('Error en el registro. Inténtalo nuevamente.');
     }
   };
+
   return (
     <>
       <div className={styles.body}>
@@ -133,6 +131,17 @@ export default function LoginForm() {
             {activeTab === 'register' && (
               <form onSubmit={handleSubmitRegister} className={styles.form}>
                 <div className={styles.formGroup}>
+                  <label className={styles.formLabel}>¿Sos médico?</label>
+                  <label className={styles.switch}>
+                    <input
+                      type="checkbox"
+                      checked={isDoctor}
+                      onChange={() => setIsDoctor(!isDoctor)}
+                    />
+                    <span className={styles.slider}></span>
+                  </label>
+                </div>
+                <div className={styles.formGroup}>
                   <label className={styles.formLabel} htmlFor="registerName">Nombre</label>
                   <input type="text" id="registerName" className={styles.formControl} required />
                 </div>
@@ -144,21 +153,28 @@ export default function LoginForm() {
                   <label className={styles.formLabel} htmlFor="registerEmail">Email</label>
                   <input type="email" id="registerEmail" className={styles.formControl} required />
                 </div>
+                {isDoctor && (
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel} htmlFor='registerArea'>Area</label>
+                    <input type="text" id="registerDNI" className={styles.formControl} required />
+                  </div>
+                )
+                }
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel} htmlFor="registerDNI">DNI</label>
-                  <input type="text" id="registerDNI" className={styles.formControl} required />
+                  <input type="text" id="registerArea" className={styles.formControl} required />
                 </div>
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel} htmlFor="registerObraSocial">Obra Social</label>
-                  <input type="text" id="registerObraSocial" className={styles.formControl} required />
-                </div>
+
+                {!isDoctor && (
+                  <div className={styles.formGroup}>
+                    <label className={styles.formLabel} htmlFor="registerObraSocial">Obra Social</label>
+                    <input type="text" id="registerObraSocial" className={styles.formControl} required />
+                  </div>
+                )}
+
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel} htmlFor="registerPassword">Contraseña</label>
                   <input type="password" id="registerPassword" className={styles.formControl} required />
-                </div>
-                <div className={styles.formGroup}>
-                  <label className={styles.formLabel} htmlFor="registerRepeatPassword">Repetir Contraseña</label>
-                  <input type="password" id="registerRepeatPassword" className={styles.formControl} required />
                 </div>
                 <div className={styles.formGroup}>
                   <label className={styles.formLabel} htmlFor="registerTelefono">Teléfono</label>
@@ -168,6 +184,8 @@ export default function LoginForm() {
                   <label className={styles.formLabel} htmlFor="registerFoto">Foto</label>
                   <input type="text" id="registerFoto" className={styles.formControl} required />
                 </div>
+              
+
                 <div className={styles.checkboxGroup}>
                   <input className={styles.checkbox} type="checkbox" id="registerCheck" defaultChecked />
                   <label className={styles.checkboxLabel} htmlFor="registerCheck">

@@ -5,7 +5,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer';
 import axios from 'axios';
 import styles from './Timer.module.css';
 
-const Timer = ({ idArea, idTurno }) => {
+const Timer = ({ idArea, idTurno, estadoTurno }) => {
   const [tiempoMultiplicado, setTiempoMultiplicado] = useState(1);
   const [cantidadPersonas, setCantidadPersonas] = useState(0);
   const [error, setError] = useState(null);
@@ -19,9 +19,9 @@ const Timer = ({ idArea, idTurno }) => {
       let cantidadPersonasData = cantidadResponse.data.cantidadPersonas || 0;
 
       const estadoResponse = await axios.get(`http://localhost:3000/api/unTurno/${idTurno}`);
-      const estadoTurno = estadoResponse.data.idEstadoTurno;
+      const estadoTurnoActual = estadoResponse.data.idEstadoTurno;
 
-      if (estadoTurno === 3) {
+      if (estadoTurnoActual === 3) {
         cantidadPersonasData = Math.max(cantidadPersonasData - 1, 0);
       }
 
@@ -49,6 +49,11 @@ const Timer = ({ idArea, idTurno }) => {
 
   if (error) {
     return <p className={styles.error}>{error}</p>;
+  }
+
+
+  if (estadoTurno === 'Está siendo atendido') {
+    return <p className={styles.noPeopleMessage}></p>;
   }
 
   const durationInSeconds = tiempoMultiplicado * 60;

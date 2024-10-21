@@ -59,7 +59,7 @@ const PerfilMedico = () => {
       {error && <p className={styles.error}>{error}</p>}
       <div className={styles.list}>
         {data.length === 0 ? (
-          <p>No hay datos disponibles</p>
+          <p>No hay pacientes en lista de espera</p>
         ) : (
           data.map((item, index) => (
             <div key={index} className={styles.listItem}>

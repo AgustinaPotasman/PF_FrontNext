@@ -87,7 +87,7 @@ export default function Informacion() {
         await axios.delete(`http://localhost:3000/api/borrarTurno/${turnoId}`);
         alert('Turno cancelado exitosamente.');
         setTurnoId(null);
-        setMostrarProximoTurno(false);
+        setMostrarProximoTurno(Id);
         setEstadoTurno('');
         setFinalizado(false);
         setSintomas('');
@@ -118,7 +118,7 @@ export default function Informacion() {
       ) : (
         <>
           <p>{estadoTurno}</p>
-          {!finalizado && <ProximoTurno idArea={selectedAreaId} idTurno={turnoId} />}
+          {!finalizado && <ProximoTurno idArea={selectedAreaId} idTurno={turnoId} estadoTurno={estadoTurno} />}
           {finalizado && <p>Finalizó su consulta</p>}
           {!finalizado && <Boton sendText="Cancelar Turno" onClick={handleCancelTurno} />}
         </>
