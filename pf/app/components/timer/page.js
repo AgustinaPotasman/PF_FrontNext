@@ -88,7 +88,7 @@ const Timer = ({ idArea, idTurno }) => {
         </div>
       )}
       <div className={styles.pacientesInfo}>
-        <p>Cantidad de personas esperando: <strong>{cantidadPersonas}</strong></p>
+        <p>Cantidad de personas previas: <strong>{cantidadPersonas}</strong></p>
       </div>
     </div>
   );
