@@ -5,7 +5,7 @@ import styles from './page.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function HomePage() {
+export default function Home() {
   const [showMap, setShowMap] = useState(false);
   const [buttonsVisible, setButtonsVisible] = useState(false);
 

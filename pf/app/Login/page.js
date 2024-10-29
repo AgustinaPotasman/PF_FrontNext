@@ -2,6 +2,7 @@
 
 import React, { useState, useContext } from 'react';
 import { UserContext } from '../components/UserContext'; 
+import { useRouter } from 'next/navigation';
 import styles from './page.module.css';
 
 const Login = () => {
@@ -10,6 +11,7 @@ const Login = () => {
   const [contrasena, setContrasena] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const router = useRouter(); 
 
   const loginPaciente = async (gmail, contrasena) => {
     const response = await fetch('http://localhost:3000/api/user/login', {
@@ -33,14 +35,13 @@ const Login = () => {
     setError('');
     setSuccess('');
 
-
     try {
       const result = await loginPaciente(gmail, contrasena); 
       if (result.success) {
         setUser(result.patient); 
         setSuccess('Login exitoso!');
-        localStorage.setItem('token', result.token); 
-      
+        localStorage.setItem('token', result.token);
+        router.push('/Home'); 
       } else {
         setError(result.message);
       }
@@ -80,9 +81,4 @@ const Login = () => {
   );
 };
 
-
-
-
 export default Login;
-
-
