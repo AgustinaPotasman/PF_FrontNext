@@ -1,15 +1,19 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Login from './Login/page.js';
-import './page.module.css';
 import LoginForm from './LoginForm/page.js';
+import './page.module.css';
 
 const App = () => {
   const [showLoginForm, setShowLoginForm] = useState(false);
 
   const toggleLoginForm = () => {
-    setShowLoginForm((prev) => !prev);
+    setShowLoginForm(true);
+  };
+
+  const switchToLogin = () => {
+    setShowLoginForm(false); 
   };
 
   return (
@@ -20,7 +24,7 @@ const App = () => {
           <button onClick={toggleLoginForm}>Ver Registro</button>
         </>
       ) : (
-        <LoginForm />
+        <LoginForm onSwitchToLogin={switchToLogin} />
       )}
     </div>
   );

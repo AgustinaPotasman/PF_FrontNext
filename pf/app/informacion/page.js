@@ -25,20 +25,19 @@ export default function Informacion() {
           const response = await axios.get(`http://localhost:3000/api/unTurno/${turnoId}`);
           const estado = response.data["idEstadoTurno"];
 
-          if (estado === 2) {
+          if (estado === 2) { 
             setEstadoTurno('Está siendo atendido');
-            setFinalizado(false);
+            setFinalizado(false); 
           } else if (estado === 3) {
             setEstadoTurno('Finalizó su consulta');
-            setMostrarProximoTurno(false);
-            setFinalizado(true);
-            setTurnoId(null);
+            setMostrarProximoTurno(false); 
+            setFinalizado(true); 
           }
         } catch (error) {
           console.error('Error al obtener el estado del turno:', error);
         }
       }
-    }, 5000);
+    }, 5000); // Cambiado a 5000 milisegundos para actualizar cada 5 segundos
 
     return () => clearInterval(interval);
   }, [turnoId]);
@@ -87,7 +86,7 @@ export default function Informacion() {
         await axios.delete(`http://localhost:3000/api/borrarTurno/${turnoId}`);
         alert('Turno cancelado exitosamente.');
         setTurnoId(null);
-        setMostrarProximoTurno(Id);
+        setMostrarProximoTurno(false);
         setEstadoTurno('');
         setFinalizado(false);
         setSintomas('');
