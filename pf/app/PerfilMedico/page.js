@@ -1,24 +1,31 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './page.module.css';
 import Boton from '../components/boton';
+import { UserContext } from '../components/UserContext'; 
 
 const PerfilMedico = () => {
+  const  user  = useContext(UserContext); 
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
   const router = useRouter();
-  const token = localStorage.getItem('token');
-
+  
+  const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   const fetchData = async () => {
+    if (!token || !user?.idArea) {
+      setError('No se pudo obtener el token o el área del médico');
+      return;
+    }
+
     try {
       const config = {
         headers: { Authorization: `Bearer ${token}` }
-    };
-      const response = await axios.get('http://localhost:3000/api/listaEspera/2', config);
+      };
+      const response = await axios.get(`http://localhost:3000/api/listaEspera/2`, config);
       if (Array.isArray(response.data)) {
         setData(response.data);
       } else {
@@ -31,35 +38,19 @@ const PerfilMedico = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (user) {
+      fetchData();
+    }
+  }, [user]);
 
   const handleCallPatient = async (patientName, idTurno) => {
     if (!idTurno) {
       alert('ID de turno no válido');
       return;
     }
-
-    try {
-      const config = {
-        headers: { Authorization: `Bearer ${token}` }
-    };
-      const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
-        nuevoEstadoId: 2 
-      }, config);
-
-      if (response.data.success) {
-        localStorage.setItem('idTurno', idTurno); 
-        console.log('ID Turno guardado:', idTurno);
-        router.push('/PacienteAtendido'); 
-      } else {
-        alert('No se pudo actualizar el estado del turno');
-      }
-    } catch (error) {
-      console.error('Error al actualizar el estado del turno:', error);
-      alert('Error al actualizar el estado del turno');
-    }
   };
+
+  
 
   return (
     <div className={styles.container}>
@@ -75,7 +66,7 @@ const PerfilMedico = () => {
               <div className={styles.name}>{item.pacientenombre}</div>
               <div className={styles.area}>{item.area}</div>
               <div className={styles.medico}>{item.mediconombre}</div>
-              <Boton sendText={"Llamar paciente"} onClick={() => handleCallPatient(item.pacientenombre, item.idturno)}></Boton>
+              <Boton sendText={"Llamar paciente"} onClick={() => handleCallPatient(item.pacientenombre, item.idturno)} />
             </div>
           ))
         )}
@@ -85,3 +76,7 @@ const PerfilMedico = () => {
 };
 
 export default PerfilMedico;
+
+
+
+

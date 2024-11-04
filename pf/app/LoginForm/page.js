@@ -85,6 +85,10 @@ export default function LoginForm({ onSwitchToLogin }) {
                         <input type="text" id="registerFoto" required />
                     </div>
                     <div className={styles.formGroup}>
+                            <label htmlFor="registerObraSocial">Obra Social</label>
+                            <input type="text" id="registerObraSocial" required />
+                        </div>
+                    <div className={styles.formGroup}>
                         <label>
                             ¿Sos médico?
                             <input
@@ -94,10 +98,10 @@ export default function LoginForm({ onSwitchToLogin }) {
                             />
                         </label>
                     </div>
-                    {!isDoctor && (
+                    {isDoctor && (
                         <div className={styles.formGroup}>
-                            <label htmlFor="registerObraSocial">Obra Social</label>
-                            <input type="text" id="registerObraSocial" required />
+                            <label htmlFor="registerIdArea">Área</label>
+                            <input type="text" id="registerIdArea" required />
                         </div>
                     )}
 

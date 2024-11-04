@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Titulo from '../components/titulo';
 import Input from '../components/input';
 import styles from './page.module.css';
@@ -9,6 +9,7 @@ import Boton from '../components/boton';
 import Footer from '../components/footer';
 import ProximoTurno from '../components/timer/page';
 import axios from 'axios';
+import { UserContext } from '../components/UserContext/index.js';
 
 export default function Informacion() {
   const [selectedAreaId, setSelectedAreaId] = useState(null);
@@ -18,8 +19,7 @@ export default function Informacion() {
   const [estadoTurno, setEstadoTurno] = useState('');
   const [finalizado, setFinalizado] = useState(false);
   const token = localStorage.getItem('token');
-
- 
+  const user = useContext(UserContext);
 
   useEffect(() => {
     const config = {
@@ -116,7 +116,11 @@ export default function Informacion() {
   };
 
   return (
+    
+   
+    
     <main className={styles.container}>
+    
       {!mostrarProximoTurno ? (
         <>
           <Titulo params="Información" />
@@ -137,6 +141,7 @@ export default function Informacion() {
           {!finalizado && <Boton sendText="Cancelar Turno" onClick={handleCancelTurno} />}
         </>
       )}
+      
       <Footer />
     </main>
   );

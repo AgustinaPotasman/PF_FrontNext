@@ -9,6 +9,7 @@ export default function Home() {
   const [showMap, setShowMap] = useState(false);
   const [buttonsVisible, setButtonsVisible] = useState(false);
 
+
   const handleMapClick = () => {
     setShowMap(prevState => !prevState); 
   };

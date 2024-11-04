@@ -12,6 +12,7 @@ const PacienteAtendido = () => {
   const [paciente, setPaciente] = useState(null); 
   const router = useRouter();
   const token = localStorage.getItem('token');
+
   
   useEffect(() => {
     const storedIdTurno = localStorage.getItem('idTurno');

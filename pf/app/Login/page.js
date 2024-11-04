@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { UserContext } from '../components/UserContext'; 
 import axios from 'axios';
 
@@ -10,28 +10,29 @@ const Login = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.get('http://localhost:3000/api/protected', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      })
+      .then(response => {
+        setUser(response.data.user); 
+      })
+      .catch(error => {
+        console.error('Error al obtener datos del usuario:', error.message);
+      });
+    }
+  }, [setUser]);
+
   const loginPaciente = async (dni, contrasena) => {
     try {
-        const response = await axios.post('http://localhost:3000/api/login', { dni, contrasena });
-        return response.data;
+      const response = await axios.post('http://localhost:3000/api/login', { dni, contrasena });
+      return response.data;
     } catch (error) {
-        const errorMessage = error.response?.data.message || 'Error en el login';
-        console.error('Error en el login:', errorMessage);
-        throw new Error(errorMessage);
-    }
-  };
-
-  const guardarToken = async () => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-
-    try {
-        const response = await axios.get('http://localhost:3000/api/protected', {
-            headers: { 'Authorization': `Bearer ${token}` }
-        });
-        console.log(response.data);
-    } catch (error) {
-        console.error('Error al obtener datos protegidos:', error.message);
+      const errorMessage = error.response?.data.message || 'Error en el login';
+      console.error('Error en el login:', errorMessage);
+      throw new Error(errorMessage);
     }
   };
 
@@ -41,22 +42,21 @@ const Login = () => {
     setSuccess('');
 
     try {
-        const result = await loginPaciente(dni, contrasena);
-        setUser(result.user);
-        localStorage.setItem('token', result.token);
+      const result = await loginPaciente(dni, contrasena);
+      setUser(result.user);
+      localStorage.setItem('token', result.token);
 
-        window.location.href = result.isMedico ? '/PerfilMedico' : '/Home';
-        guardarToken();
-        setSuccess('Login exitoso!');
+      window.location.href = result.isMedico ? '/PerfilMedico' : '/Home';
+      setSuccess('Login exitoso!');
     } catch (error) {
-        setError(error.message);
+      setError(error.message);
     }
   };
 
   const handleLogout = () => {
-    setUser(null);
-    localStorage.removeItem('token');
-    window.location.href = '/';
+    setUser(null); 
+    localStorage.clear(); 
+    window.location.href = '/'; 
   };
 
   return (

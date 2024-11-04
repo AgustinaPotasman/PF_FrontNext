@@ -4,6 +4,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const EstadoTurno = () => {
+
+
   const router = useRouter();
   const [mensaje, setMensaje] = useState('');
 
