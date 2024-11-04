@@ -9,16 +9,21 @@ const Timer = ({ idArea, idTurno, estadoTurno }) => {
   const [tiempoMultiplicado, setTiempoMultiplicado] = useState(1);
   const [cantidadPersonas, setCantidadPersonas] = useState(0);
   const [error, setError] = useState(null);
+  const token = localStorage.getItem('token');
+
 
   const fetchData = async () => {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+  };
     try {
-      const tiempoResponse = await axios.get(`http://localhost:3000/api/tiempoEspera/${idArea}`);
+      const tiempoResponse = await axios.get(`http://localhost:3000/api/tiempoEspera/${idArea}`, config);
       const tiempoEspera = parseFloat(tiempoResponse.data[0]?.TiempoEspera || 1);
 
-      const cantidadResponse = await axios.get(`http://localhost:3000/api/cantidadPersonas/${idArea}/${idTurno}`);
+      const cantidadResponse = await axios.get(`http://localhost:3000/api/cantidadPersonas/${idArea}/${idTurno}`, config);
       let cantidadPersonasData = cantidadResponse.data.cantidadPersonas || 0;
 
-      const estadoResponse = await axios.get(`http://localhost:3000/api/unTurno/${idTurno}`);
+      const estadoResponse = await axios.get(`http://localhost:3000/api/unTurno/${idTurno}`, config);
       const estadoTurnoActual = estadoResponse.data.idEstadoTurno;
 
       if (estadoTurnoActual === 3) {

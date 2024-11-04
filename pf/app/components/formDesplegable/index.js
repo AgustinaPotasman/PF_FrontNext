@@ -1,13 +1,19 @@
-// formDesplegable.js
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import styles from "./styles.module.css";  // Asegúrate de importar el CSS correcto
+import styles from "./styles.module.css";  
 
 export default function FormDesplegable({ onSelectArea }) {
   const [categorias, setCategorias] = useState([]);
+  const token = localStorage.getItem('token');
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/areas")
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+  };
+    axios.get('http://localhost:3000/api/areas',
+    config
+    )
       .then(response => {
         console.log("Datos recibidos de la API:", response.data);
         setCategorias(response.data);

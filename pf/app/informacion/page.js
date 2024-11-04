@@ -17,12 +17,20 @@ export default function Informacion() {
   const [turnoId, setTurnoId] = useState(null);
   const [estadoTurno, setEstadoTurno] = useState('');
   const [finalizado, setFinalizado] = useState(false);
+  const token = localStorage.getItem('token');
+
+ 
 
   useEffect(() => {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+  };
     const interval = setInterval(async () => {
       if (turnoId) {
         try {
-          const response = await axios.get(`http://localhost:3000/api/unTurno/${turnoId}`);
+          const response = await axios.get(`http://localhost:3000/api/unTurno/${turnoId}`,
+          config
+          );
           const estado = response.data["idEstadoTurno"];
 
           if (estado === 2) { 
@@ -37,7 +45,7 @@ export default function Informacion() {
           console.error('Error al obtener el estado del turno:', error);
         }
       }
-    }, 5000); // Cambiado a 5000 milisegundos para actualizar cada 5 segundos
+    }, 5000); 
 
     return () => clearInterval(interval);
   }, [turnoId]);
@@ -51,11 +59,15 @@ export default function Informacion() {
   };
 
   const handleNext = async () => {
+  
     if (selectedAreaId && sintomas.trim()) {
       try {
         const idMedico = Math.floor(Math.random() * 3) + 1;
         const idPaciente = Math.floor(Math.random() * 3) + 1;
         const idEstadoTurno = 1;
+        const config = {
+          headers: { Authorization: `Bearer ${token}` }
+      };
 
         const response = await axios.post('http://localhost:3000/api/insertarTurno', {
           idMedico,
@@ -63,7 +75,7 @@ export default function Informacion() {
           idArea: selectedAreaId,
           idEstadoTurno,
           Sintomas: sintomas,
-        });
+        }, config );
 
         const turnoNuevo = response.data;
         setTurnoId(turnoNuevo.Id);
@@ -82,8 +94,11 @@ export default function Informacion() {
 
   const handleCancelTurno = async () => {
     if (turnoId) {
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
       try {
-        await axios.delete(`http://localhost:3000/api/borrarTurno/${turnoId}`);
+        await axios.delete(`http://localhost:3000/api/borrarTurno/${turnoId}`, config);
         alert('Turno cancelado exitosamente.');
         setTurnoId(null);
         setMostrarProximoTurno(false);

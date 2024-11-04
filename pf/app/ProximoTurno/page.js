@@ -8,14 +8,19 @@ import styles from "./page.module.css"
 const ProximoTurno = ({ idArea, sintomas }) => {
   const [tiempoMultiplicado, setTiempoMultiplicado] = useState(null);
   const [error, setError] = useState(null);
+  const token = localStorage.getItem('token');
+
 
   useEffect(() => {
     if (!idArea) return;
 
     const fetchData = async () => {
       try {
-        const tiempoResponse = await axios.get(`http://localhost:3000/api/tiempoEspera/${idArea}`);
-        const cantidadResponse = await axios.get(`http://localhost:3000/api/cantidadPersonas/${idArea}`);
+        const config = {
+          headers: { Authorization: `Bearer ${token}` }
+      };
+        const tiempoResponse = await axios.get(`http://localhost:3000/api/tiempoEspera/${idArea}`, config);
+        const cantidadResponse = await axios.get(`http://localhost:3000/api/cantidadPersonas/${idArea}`, config);
         const tiempoEspera = parseFloat(tiempoResponse.data[0]?.TiempoEspera || 0);
         const cantidadPersonas = cantidadResponse.data.cantidadPersonas || 0;
 

@@ -3,12 +3,16 @@ import axios from 'axios';
 import styles from './ModalMedico.module.css';
 
 const ModalMedico = ({ idTurno, onConfirm, onCancel, message = "¿Deseas finalizar el turno?" }) => {
+  const token = localStorage.getItem('token');
 
   const handleConfirm = async () => {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+  };
     try {
       const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
         nuevoEstadoId: 3, 
-      });
+      }, config );
 
       if (response.data.success) {
         onConfirm(); 

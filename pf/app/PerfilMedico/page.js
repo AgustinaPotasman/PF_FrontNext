@@ -10,10 +10,15 @@ const PerfilMedico = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
   const router = useRouter();
+  const token = localStorage.getItem('token');
+
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/listaEspera/2');
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
+      const response = await axios.get('http://localhost:3000/api/listaEspera/2', config);
       if (Array.isArray(response.data)) {
         setData(response.data);
       } else {
@@ -36,9 +41,12 @@ const PerfilMedico = () => {
     }
 
     try {
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
       const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
         nuevoEstadoId: 2 
-      });
+      }, config);
 
       if (response.data.success) {
         localStorage.setItem('idTurno', idTurno); 

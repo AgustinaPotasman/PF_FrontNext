@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Login from './Login/page.js';
 import LoginForm from './LoginForm/page.js';
+import { UserProvider } from './components/UserContext/index.js';
 import './page.module.css';
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
   };
 
   return (
+    <UserProvider>
     <div className="app">
       {!showLoginForm ? (
         <>
@@ -27,6 +29,7 @@ const App = () => {
         <LoginForm onSwitchToLogin={switchToLogin} />
       )}
     </div>
+    </UserProvider>
   );
 };
 

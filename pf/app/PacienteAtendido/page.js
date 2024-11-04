@@ -11,6 +11,7 @@ const PacienteAtendido = () => {
   const [idTurno, setIdTurno] = useState(null);
   const [paciente, setPaciente] = useState(null); 
   const router = useRouter();
+  const token = localStorage.getItem('token');
   
   useEffect(() => {
     const storedIdTurno = localStorage.getItem('idTurno');
@@ -24,8 +25,11 @@ const PacienteAtendido = () => {
   }, []);
   
   const fetchPaciente = async (idTurno) => {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+  };
     try {
-      const response = await axios.get(`http://localhost:3000/api/unTurno/${idTurno}`);
+      const response = await axios.get(`http://localhost:3000/api/unTurno/${idTurno}`, config);
       if (response.data) {
         setPaciente(response.data);
       } else {
@@ -48,10 +52,13 @@ const PacienteAtendido = () => {
     }
     
     try {
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+    };
       console.log(`Haciendo PUT a /api/actualizarEstadoTurno/${idTurno}`); 
       const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
         nuevoEstadoId: 3 
-      });
+      }, config);
       console.log('Respuesta:', response.data);
 
       if (response.data.success) {
