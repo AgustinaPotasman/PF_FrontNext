@@ -3,6 +3,7 @@
 import React, { useState, useContext } from "react";
 import { UserContext } from "../components/UserContext";
 import styles from "./page.module.css";
+import axios from 'axios';
 
 export default function LoginForm({ onSwitchToLogin }) {
     const [activeTab, setActiveTab] = useState("register");
@@ -15,37 +16,37 @@ export default function LoginForm({ onSwitchToLogin }) {
         event.preventDefault();
         setLoading(true);
         setErrorMessage("");
-
+    
         const newUser = {
             nombre: event.target.registerName.value.trim(),
             apellido: event.target.registerLastname.value.trim(),
-            dni: event.target.registerDNI.value.trim(),
+            DNI: event.target.registerDNI.value.trim(),
             gmail: event.target.registerEmail.value.trim(),
-            obra_social: isDoctor ? null : event.target.registerObraSocial.value.trim(),
             contrasena: event.target.registerPassword.value,
             telefono: event.target.registerTelefono.value.trim(),
             foto: event.target.registerFoto.value.trim(),
-        };
+            ObraSocial: isDoctor ? null : event.target.registerObraSocial.value.trim(),        };
+    
+    
+        console.log("Nuevo usuario:", newUser); 
 
-        const API_URL = "http://localhost:3000/api/user";
+        const API_URL = "http://localhost:3000/api/user/register";   
+        console.log(`Enviando a: ${API_URL} con datos:`, newUser); 
+    
         try {
-            const response = await fetch(`${API_URL}/register`, {
-                method: "POST",
+            const response = await axios.post('http://localhost:3000/api/user/register', newUser, {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(newUser),
             });
-            const data = await response.json();
-
-            if (!response.ok) {
-                setErrorMessage(data.message || "Error en el registro. Por favor, verifica los datos.");
-            } else {
-                alert("Registro exitoso. Ahora puedes iniciar sesión.");
-                handleTabChange("login");
-            }
+    
+            alert("Registro exitoso. Ahora puedes iniciar sesión.");
         } catch (error) {
-            setErrorMessage("Error de conexión: " + (error.message || "Error desconocido"));
+            console.error('Error en el registro:', error.response ? error.response.data : error.message);
+            setErrorMessage(
+                error.response?.data?.message || 
+                "Error en el registro. Por favor, verifica los datos."
+            );
         } finally {
             setLoading(false);
         }
@@ -99,6 +100,7 @@ export default function LoginForm({ onSwitchToLogin }) {
                             <input type="text" id="registerObraSocial" required />
                         </div>
                     )}
+
                     {errorMessage && <div className={styles.error}>{errorMessage}</div>}
                     <button type="submit" className={styles.btnPrimary} disabled={loading}>
                         {loading ? "Loading..." : "Registrarse"}
@@ -115,3 +117,4 @@ export default function LoginForm({ onSwitchToLogin }) {
         </div>
     );
 }
+
