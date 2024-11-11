@@ -4,6 +4,7 @@ import styles from "./layout.module.css";
 import Link from "next/link";
 import { Providers } from "./providers";
 import Perfil from "./Perfil/page";
+import { ProtectedRoutes } from "./components/Utils/ProtectedRoutes";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
           <Providers>
+            <ProtectedRoutes>
             {children}
+            </ProtectedRoutes>
           </Providers>
       </body>
     </html>
