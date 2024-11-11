@@ -1,29 +1,54 @@
 'use client';
 
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserContext } from '../components/UserContext'; 
 import styles from './page.module.css';
-import Form from '../components/Form';
-import Titulo from '../components/titulo';
 import Footer from '../components/footer';
+import Header from '../components/Header';
 
-export default function Home() {
-
-    return (
-        <div>
-            <ProximoTurnoPage />
-        </div>
-    );
+export default function Perfil() {
+  return (
+    <div>
+      <Header ></Header>
+      <ProximoTurnoPage />
+    </div>
+  );
 }
 
 const ProximoTurnoPage = () => {
-    return (
-        <main className={styles.container}>
-            <header className={styles.header}>
-                <img src="/img/mujer.jpg" className={styles.imagenRedonda} alt="Imagen redonda" />
-                <h2>Victoria Robertson</h2>
-            </header>
-            <Form />
-            <Footer />
-        </main>
-    );
+  const { user, setUser } = useContext(UserContext);
+
+  const handleLogout = () => {
+    setUser(null);  
+    localStorage.removeItem('token');  
+    localStorage.removeItem('user');
+    window.location.href = '/'; 
+  };
+
+  if (!user) {
+    return <p className={styles.noUserMessage}>Por favor inicie sesión para ver su perfil.</p>;
+  }
+
+  return (
+    <main className={styles.container}>
+      <header className={styles.header}>
+        <img src="/img/mujer.jpg" className={styles.imagenRedonda} alt="Imagen redonda" />
+        <h2>{user?.Nombre || 'Nombre no disponible'}</h2>
+      </header>
+
+      <div className={styles.userData}>
+        <p><strong>Nombre: </strong>{user?.Nombre || 'No disponible'}</p> 
+        <p><strong>Apellido:</strong> {user?.Apellido || 'No disponible'}</p>
+        <p><strong>DNI:</strong> {user?.DNI || 'No disponible'}</p>
+        <p><strong>Email:</strong> {user?.Gmail || 'No disponible'}</p>
+        <p><strong>Teléfono:</strong> {user?.Telefono || 'No disponible'}</p>
+
+        <button onClick={handleLogout} className={styles.logoutButton}>
+          Cerrar Sesión
+        </button>
+      </div>
+
+      <Footer />
+    </main>
+  );
 };

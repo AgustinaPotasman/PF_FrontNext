@@ -1,77 +1,89 @@
-/* Estilos para la página principal */
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    padding: 20px;
+    background-color: #f7f7f7;
     min-height: 100vh;
-    background-color: #f2f2f2;
-    padding: 0;
-    margin: 0;
-}
-
-/* Estilos para el encabezado */
-.header {
+  }
+  
+  .header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #A01111;
-    padding: 15px 10px 40px; /* Reduce el padding para un fondo más sutil */
-    width: 100%;
     text-align: center;
-    border-bottom-left-radius: 15px; /* Reduce el border-radius para bordes más sutiles */
-    border-bottom-right-radius: 15px; /* Reduce el border-radius para bordes más sutiles */
-    position: relative;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajusta la sombra para que sea más sutil */
-    margin: 0; /* Asegura que el header toque el borde superior */
-}
-
-.header img {
-    width: 80px; /* Reduce el tamaño de la imagen */
-    height: 80px; /* Reduce el tamaño de la imagen */
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .imagenRedonda {
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid #ffffff;
-    position: absolute;
-    bottom: -40px; /* Ajusta la posición de la imagen */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.header img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.header h2 {
-    color: #ffffff;
-    margin: 50px 0 0; /* Ajusta el margen superior para que el título esté más cerca del fondo rojo */
-    font-size: 22px; /* Ajusta el tamaño de fuente para que el título sea más pequeño */
-    font-weight: 700;
-}
-
-/* Estilos específicos para pantallas móviles */
-@media (max-width: 768px) {
-    .header {
-        padding: 10px 10px 30px; /* Ajusta el padding para pantallas móviles */
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-
-    .header img {
-        width: 60px;
-        height: 60px;
-        bottom: -30px;
-    }
-
-    .header h2 {
-        font-size: 18px;
-        margin: 30px 0 0;
-    }
-
-    .form {
-        width: 90%;
-        max-width: 350px;
-        margin-top: 100px;
-        padding: 15px;
-    }
-}
+    border: 3px solid #f0f0f0;
+    margin-bottom: 15px;
+  }
+  
+  .header h2 {
+    font-size: 24px;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  .userData {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .userData p {
+    font-size: 16px;
+    color: #555;
+    margin: 10px 0;
+  }
+  
+  .userData p strong {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .logoutButton {
+    background-color: #c22e2e;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+  }
+  
+  .logoutButton:hover {
+    background-color: #e63946;
+  }
+  
+  .footer {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 14px;
+    color: #777;
+  }
+  
+  .noUserMessage {
+    color: #ff6347;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+  }
+  

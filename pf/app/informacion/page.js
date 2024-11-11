@@ -19,7 +19,7 @@ export default function Informacion() {
   const [estadoTurno, setEstadoTurno] = useState('');
   const [finalizado, setFinalizado] = useState(false);
   const token = localStorage.getItem('token');
-  const user = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const config = {
@@ -62,15 +62,13 @@ export default function Informacion() {
   
     if (selectedAreaId && sintomas.trim()) {
       try {
-        const idMedico = Math.floor(Math.random() * 3) + 1;
-        const idPaciente = Math.floor(Math.random() * 3) + 1;
+        const idPaciente = user.Id;
         const idEstadoTurno = 1;
         const config = {
           headers: { Authorization: `Bearer ${token}` }
       };
 
         const response = await axios.post('http://localhost:3000/api/insertarTurno', {
-          idMedico,
           idPaciente,
           idArea: selectedAreaId,
           idEstadoTurno,

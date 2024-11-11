@@ -1,33 +1,21 @@
 "use client";
 import React, { useState, useContext, useEffect } from 'react';
-import { UserContext } from '../components/UserContext'; 
+import { UserContext } from '../components/UserContext';
 import axios from 'axios';
 
 const Login = () => {
-  const { user, setUser } = useContext(UserContext); 
-  const [dni, setDni] = useState(''); 
+  const { user, setUser } = useContext(UserContext);
+  const [dni, setDni] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      axios.get('http://localhost:3000/api/protected', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      })
-      .then(response => {
-        setUser(response.data.user); 
-      })
-      .catch(error => {
-        console.error('Error al obtener datos del usuario:', error.message);
-      });
-    }
-  }, [setUser]);
 
   const loginPaciente = async (dni, contrasena) => {
     try {
+      console.log("Enviando al backend:", { dni, contrasena });
       const response = await axios.post('http://localhost:3000/api/login', { dni, contrasena });
+      console.log("Respuesta del backend:", response.data);
       return response.data;
     } catch (error) {
       const errorMessage = error.response?.data.message || 'Error en el login';
@@ -41,29 +29,44 @@ const Login = () => {
     setError('');
     setSuccess('');
 
+    if (!dni || !contrasena) {
+      setError("Por favor ingresa tanto el DNI como la contraseña.");
+      return;
+    }
+
     try {
       const result = await loginPaciente(dni, contrasena);
-      setUser(result.user);
-      localStorage.setItem('token', result.token);
+      console.log(JSON.stringify(result))
 
-      window.location.href = result.isMedico ? '/PerfilMedico' : '/Home';
-      setSuccess('Login exitoso!');
+      if (result.patient) {
+        setUser(result.patient);  
+        localStorage.setItem('token', result.token);  
+        localStorage.setItem('user', JSON.stringify(result.patient)); 
+
+        setSuccess("Bienvenido, " + result.patient.name);
+
+    
+        window.location.href = result.isMedico ? '/PerfilMedico' : '/Home';
+      } else {
+        setError("Error: No se recibió información del usuario.");
+      }
     } catch (error) {
       setError(error.message);
     }
   };
 
   const handleLogout = () => {
-    setUser(null); 
-    localStorage.clear(); 
-    window.location.href = '/'; 
+    setUser(null);  
+    localStorage.removeItem('token'); 
+    localStorage.removeItem('user');  
+    window.location.href = '/';  
   };
 
   return (
     <div className="login-container">
       {user ? (
         <div>
-          <h2>Bienvenido, {user.name}!</h2>
+          <h2>Bienvenid@, {user.Nombre}!</h2>
           <button onClick={handleLogout}>Cerrar Sesión</button>
         </div>
       ) : (

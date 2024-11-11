@@ -8,7 +8,7 @@ import Boton from '../components/boton';
 import { UserContext } from '../components/UserContext'; 
 
 const PerfilMedico = () => {
-  const  user  = useContext(UserContext); 
+  const  { user, setUser }  = useContext(UserContext); 
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
   const router = useRouter();
@@ -16,7 +16,7 @@ const PerfilMedico = () => {
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   const fetchData = async () => {
-    if (!token || !user?.idArea) {
+    if (!user?.idArea) {
       setError('No se pudo obtener el token o el área del médico');
       return;
     }
@@ -25,7 +25,7 @@ const PerfilMedico = () => {
       const config = {
         headers: { Authorization: `Bearer ${token}` }
       };
-      const response = await axios.get(`http://localhost:3000/api/listaEspera/2`, config);
+      const response = await axios.get(`http://localhost:3000/api/listaEspera/${user.idArea}`, config);
       if (Array.isArray(response.data)) {
         setData(response.data);
       } else {

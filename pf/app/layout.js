@@ -2,6 +2,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import styles from "./layout.module.css";
 import Link from "next/link";
+import { Providers } from "./providers";
+import Perfil from "./Perfil/page";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,14 +16,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav className={styles.nav}>
-          <div className={styles["nav-links"]}>
-            <Link href="/informacion" className={styles["nav-link"]}>Sacar turno</Link>
-            <Link href="/ProximoTurno" className={styles["nav-link"]}>Próximo turno</Link>
-            <Link href="/Perfil" className={styles["nav-link"]}>Perfil</Link>
-          </div>
-        </nav>
-        {children}
+          <Providers>
+            {children}
+          </Providers>
       </body>
     </html>
   );
