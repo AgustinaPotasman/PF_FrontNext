@@ -8,11 +8,14 @@ import Boton from '../components/boton';
 import { UserContext } from '../components/UserContext'; 
 
 const PerfilMedico = () => {
-  const  { user, setUser }  = useContext(UserContext); 
+  const { user, setUser } = useContext(UserContext); 
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
   const router = useRouter();
+
+
   
+
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
   const fetchData = async () => {
@@ -43,14 +46,41 @@ const PerfilMedico = () => {
     }
   }, [user]);
 
+  if (!user) {
+    return (
+      <div>
+        <p className={styles.noUserMessage}>Acceso restringido. Inicie sesión</p>
+        <button 
+          onClick={() => window.location.href = '/Login'} 
+          className={styles.loginButton}
+        >
+          Ir a Login
+        </button>
+      </div>
+    );
+  }
+
+
+  if (!user.idArea) {
+    return (
+      <div>
+        <p className={styles.noUserMessage}>Acceso restringido. Solo médicos pueden acceder a esta página</p>
+        <button 
+          onClick={() => window.location.href = '/'} 
+          className={styles.loginButton}
+        >
+          Volver al inicio
+        </button>
+      </div>
+    );
+  }
+
   const handleCallPatient = async (patientName, idTurno) => {
     if (!idTurno) {
       alert('ID de turno no válido');
       return;
     }
   };
-
-  
 
   return (
     <div className={styles.container}>
@@ -76,7 +106,3 @@ const PerfilMedico = () => {
 };
 
 export default PerfilMedico;
-
-
-
-

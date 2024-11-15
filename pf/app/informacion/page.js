@@ -21,6 +21,21 @@ export default function Informacion() {
   const token = localStorage.getItem('token');
   const { user } = useContext(UserContext);
 
+  if (!user) {
+    return (
+      <div>
+        <p className={styles.noUserMessage}>Acceso restringido. Inicie sesión</p>
+        <button 
+          onClick={() => window.location.href = '/ogin'} 
+          className={styles.loginButton}
+        >
+          Ir a Login
+        </button>
+      </div>
+    );
+  }
+  
+
   useEffect(() => {
     const config = {
       headers: { Authorization: `Bearer ${token}` }

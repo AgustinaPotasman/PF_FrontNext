@@ -26,15 +26,15 @@
   background-color: #800d0d;
 }
 
-/* Estilos para pantallas móviles */
+
 @media (max-width: 768px) {
   .container {
     padding: 15px;
   }
 
   .boton {
-    font-size: 0.9rem; /* Reduce el tamaño de fuente */
-    max-width: 100%; /* Ocupa todo el ancho disponible */
+    font-size: 0.9rem; 
+    max-width: 100%;
   }
 }
 

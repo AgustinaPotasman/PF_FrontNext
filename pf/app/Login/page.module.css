@@ -1,77 +1,135 @@
-.login-container {
+
+
+.body {
+    font-family: Arial, sans-serif;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f5f5f5; /* Fondo claro */
-}
-
-h2 {
-    margin-bottom: 20px;
-    color: #333; /* Color del título */
-}
-
-form {
-    background: white;
+    background-color: #f4f5f7;
+    margin: 0;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px;
+    background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    width: 300px; /* Ancho del formulario */
+    text-align: center;
+  }
+  
+  .h2 {
+    font-size: 20px;
+    color: #d42121;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+  
+  .form {
     display: flex;
     flex-direction: column;
-}
-
-div {
-    margin-bottom: 15px;
-}
-
-label {
-    margin-bottom: 5px;
+    gap: 10px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup label {
+    font-size: 13px;
+    color: #333333;
+    margin-bottom: 3px;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    font-size: 14px;
+  }
+  
+  .btnPrimary {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #ce3512;
+    color: #ffffff;
+    font-size: 15px;
     font-weight: bold;
-    color: #555; /* Color de las etiquetas */
-}
-
-input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-input:focus {
-    border-color: #007bff; /* Color del borde al enfocar */
-    outline: none;
-}
-
-.error {
-    color: red;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-.success {
-    color: green;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
-button {
-    background-color: #007bff; /* Color del botón */
-    color: white;
     border: none;
-    padding: 10px;
-    border-radius: 4px;
-    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #0056b3; /* Color al pasar el ratón sobre el botón */
-}
-
-button:disabled {
-    background-color: #ccc; /* Color del botón deshabilitado */
-    cursor: not-allowed;
-}
+    transition: background-color 0.3s ease;
+  }
+  
+  .btnPrimary:hover {
+    background-color: #a82017;
+  }
+  
+  .error {
+    color: #c01a1a;
+    font-size: 13px;
+    margin-top: -5px;
+    margin-bottom: 8px;
+  }
+  
+  .success {
+    color: #28a745;
+    font-size: 13px;
+    margin-top: -5px;
+    margin-bottom: 8px;
+  }
+  
+  .signupContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .signupText {
+    margin-right: 5px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .signupLink {
+    color: #ce3512;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .signupLink:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 600px) {
+    .container {
+      padding: 20px;
+    }
+  
+    .h2 {
+      font-size: 18px;
+    }
+  
+    .input {
+      font-size: 14px;
+    }
+  
+    .btnPrimary {
+      padding: 12px;
+      font-size: 14px;
+    }
+  
+    .signupText, .signupLink {
+      font-size: 12px;
+    }
+  
+    .error, .success {
+      font-size: 12px;
+    }
+  }
+  

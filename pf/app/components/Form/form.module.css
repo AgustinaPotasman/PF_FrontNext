@@ -1,3 +1,4 @@
+
 .form {
   width: 100%;
   max-width: 450px;
@@ -34,7 +35,7 @@
 .inputContainer:focus-within {
   border-color: #A01111;
   background-color: #ffffff;
-  box-shadow: 0 0 5px rgba(160, 17, 17, 0.3); /* Sombra sutil al enfocar */
+  box-shadow: 0 0 5px rgba(160, 17, 17, 0.3);
 }
 
 .input {
@@ -71,10 +72,9 @@
 
 .button:hover {
   background-color: #b71c1c;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade sombra al botón en hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilos específicos para pantallas móviles */
 @media (max-width: 768px) {
   .form {
       width: 90%;
@@ -103,3 +103,4 @@
       margin-top: 15px;
   }
 }
+

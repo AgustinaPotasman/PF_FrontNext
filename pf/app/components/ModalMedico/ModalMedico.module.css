@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; 
+  z-index: 1000;
 }
 
 .modalContent {
@@ -31,7 +31,7 @@
 }
 
 .button {
-  background-color: #4CAF50; 
+  background-color: #4CAF50;
   color: white;
   border: none;
   border-radius: 5px;
@@ -43,13 +43,29 @@
 }
 
 .button:hover {
-  background-color: #45a049; 
+  background-color: #45a049;
 }
 
 .button:last-child {
-  background-color: #f44336; 
+  background-color: #f44336;
 }
 
 .button:last-child:hover {
   background-color: #d32f2f;
+}
+
+@media (max-width: 768px) {
+  .modalContent {
+    width: 80%;
+    padding: 15px;
+  }
+
+  .button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+  }
 }

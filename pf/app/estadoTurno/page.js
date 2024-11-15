@@ -1,9 +1,25 @@
 "use client";
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { UserContext } from '../components/UserContext';
 
 const EstadoTurno = () => {
+  const { user } = useContext(UserContext)
+
+  if (!user) {
+    return (
+      <div>
+        <p className={styles.noUserMessage}>Acceso restringido. Inicie sesión</p>
+        <button 
+          onClick={() => window.location.href = '/Login'} 
+          className={styles.loginButton}
+        >
+          Ir a Login
+        </button>
+      </div>
+    );
+  }
 
 
   const router = useRouter();

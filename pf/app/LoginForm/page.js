@@ -25,9 +25,13 @@ export default function LoginForm({ onSwitchToLogin }) {
             contrasena: event.target.registerPassword.value,
             telefono: event.target.registerTelefono.value.trim(),
             foto: event.target.registerFoto.value.trim(),
-            ObraSocial: isDoctor ? null : event.target.registerObraSocial.value.trim(),        };
-    
-    
+            ObraSocial: isDoctor ? null : event.target.registerObraSocial.value.trim(),  
+        };
+
+        if (isDoctor) {
+            newUser.idArea = event.target.registerIdArea.value.trim();
+        }
+
         console.log("Nuevo usuario:", newUser); 
 
         const API_URL = "http://localhost:3000/api/user/register";   
@@ -55,6 +59,7 @@ export default function LoginForm({ onSwitchToLogin }) {
     return (
         <div className={styles.body}>
             <div className={styles.container}>
+                <h2 className={styles.title}>Registro</h2>  {/* Título agregado aquí */}
                 <form onSubmit={handleSubmitRegister} className={styles.form}>
                     <div className={styles.formGroup}>
                         <label htmlFor="registerName">Nombre</label>
@@ -84,10 +89,14 @@ export default function LoginForm({ onSwitchToLogin }) {
                         <label htmlFor="registerFoto">Foto</label>
                         <input type="text" id="registerFoto" required />
                     </div>
-                    <div className={styles.formGroup}>
+
+                    {!isDoctor && (
+                        <div className={styles.formGroup}>
                             <label htmlFor="registerObraSocial">Obra Social</label>
                             <input type="text" id="registerObraSocial" required />
                         </div>
+                    )}
+                    
                     <div className={styles.formGroup}>
                         <label>
                             ¿Sos médico?
@@ -98,6 +107,7 @@ export default function LoginForm({ onSwitchToLogin }) {
                             />
                         </label>
                     </div>
+
                     {isDoctor && (
                         <div className={styles.formGroup}>
                             <label htmlFor="registerIdArea">Área</label>
@@ -110,15 +120,13 @@ export default function LoginForm({ onSwitchToLogin }) {
                         {loading ? "Loading..." : "Registrarse"}
                     </button>
                 </form>
-
-                <div className={styles.switchToLogin}>
-                    <p>¿Ya estás registrado?</p>
-                    <button onClick={onSwitchToLogin} className={styles.btnSecondary}>
-                        Ir a Login
-                    </button>
-                </div>
+                <button
+                    onClick={() => (window.location.href = "/Login")}
+                    className={styles.btnSecondary}
+                >
+                    Ir a Login
+                </button>
             </div>
         </div>
     );
 }
-

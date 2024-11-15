@@ -9,7 +9,6 @@ import Header from '../components/Header';
 export default function Perfil() {
   return (
     <div>
-      <Header ></Header>
       <ProximoTurnoPage />
     </div>
   );
@@ -26,7 +25,17 @@ const ProximoTurnoPage = () => {
   };
 
   if (!user) {
-    return <p className={styles.noUserMessage}>Por favor inicie sesión para ver su perfil.</p>;
+    return (
+      <div>
+        <p className={styles.noUserMessage}>Acceso restringido. Inicie sesión</p>
+        <button 
+          onClick={() => window.location.href = '/Login'} 
+          className={styles.loginButton}
+        >
+          Ir a Login
+        </button>
+      </div>
+    );
   }
 
   return (

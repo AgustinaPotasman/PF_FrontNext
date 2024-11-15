@@ -2,8 +2,6 @@
   padding: 20px;
 }
 
-
-
 .error {
   color: red;
   font-weight: bold;
@@ -13,17 +11,23 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .listItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.listItem:hover {
+  background-color: #f1f1f1;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .index {
@@ -34,23 +38,63 @@
 }
 
 .name {
-  flex: 1;
+  flex: 2;
+  text-align: left;
+  font-weight: bold;
 }
 
-.area {
+.area, .medico, .time {
   flex: 1;
   text-align: center;
-  color: #aaa;
+  color: #555;
 }
 
-.medico {
-  flex: 1;
-  text-align: center;
-  color: #aaa;
+@media (max-width: 768px) {
+  .listItem {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .index {
+    flex: 0 0 30px;
+    margin-bottom: 10px;
+  }
+
+  .name, .area, .medico, .time {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 5px;
+  }
+
+  .area, .medico, .time {
+    color: #777;
+  }
 }
 
-.time {
-  flex: 0 0 80px;
-  text-align: center;
-  color: #aaa;
+@media (max-width: 480px) {
+  .listItem {
+    padding: 10px;
+  }
+
+  .index {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+
+  .area, .medico, .time {
+    font-size: 12px;
+  }
+
+  .list {
+    gap: 12px;
+  }
+
+  .listItem {
+    padding: 10px;
+  }
 }

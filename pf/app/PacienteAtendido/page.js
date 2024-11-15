@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './page.module.css';
 import Modal from '../components/ModalMedico'; 
+import { UserContext } from '../components/UserContext'; 
 
 const PacienteAtendido = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,8 +13,22 @@ const PacienteAtendido = () => {
   const [paciente, setPaciente] = useState(null); 
   const router = useRouter();
   const token = localStorage.getItem('token');
+  const { user } = useContext(UserContext);
 
-  
+  if (!user) {
+    return (
+      <div>
+        <p className={styles.noUserMessage}>Acceso restringido. Inicie sesión</p>
+        <button 
+          onClick={() => window.location.href = '/Login'} 
+          className={styles.loginButton}
+        >
+          Ir a Login
+        </button>
+      </div>
+    );
+  }
+
   useEffect(() => {
     const storedIdTurno = localStorage.getItem('idTurno');
     if (storedIdTurno) {

@@ -28,14 +28,14 @@ const App = ({}) => {
       {user ? 
         <nav className={styles.nav}>
           <div className={styles["nav-links"]}>
-            <Header />
+
             <Home />
           </div>
         </nav>
         :
         !showLoginForm ? (
           <>
-              <Header />
+            
              
             <Login />
             <button onClick={toggleLoginForm}>Registrarse</button>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Providers } from "./providers";
 import Perfil from "./Perfil/page";
 import { ProtectedRoutes } from "./components/Utils/ProtectedRoutes";
+import Header from "./components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        
           <Providers>
             <ProtectedRoutes>
+              <Header />
             {children}
+          
             </ProtectedRoutes>
           </Providers>
       </body>

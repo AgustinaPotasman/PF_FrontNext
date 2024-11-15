@@ -1,4 +1,4 @@
-/* page.module.css */
+
 
 .container {
   display: flex;
@@ -10,8 +10,6 @@
   padding: 20px;
   position: relative;
 }
-
-
 
 .patientImage {
   width: 120px;
@@ -30,7 +28,7 @@
   width: 100%;
   max-width: 400px;
   text-align: center;
-  margin-top: 50px; /* Espacio para la imagen */
+  margin-top: 50px; 
 }
 
 .patientDetails p {
@@ -53,4 +51,51 @@
 
 .endButton:hover {
   background-color: #b30000;
+}
+
+
+@media (max-width: 768px) {
+  .patientImage {
+    width: 100px;
+    height: 100px;
+  }
+
+  .patientDetails {
+    padding: 15px;
+    margin-top: 40px; 
+  }
+
+  .patientDetails p {
+    font-size: 14px;
+  }
+
+  .endButton {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  .patientImage {
+    width: 80px;
+    height: 80px;
+  }
+
+  .patientDetails {
+    padding: 10px;
+    margin-top: 30px; 
+  }
+
+  .patientDetails p {
+    font-size: 12px;
+  }
+
+  .endButton {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
 }

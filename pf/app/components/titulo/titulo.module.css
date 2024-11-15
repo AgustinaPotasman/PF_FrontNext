@@ -1,6 +1,13 @@
 .title {
-    font-size: 3.5rem;
-    padding: 1rem 0;
+  font-size: 3.5rem;
+  padding: 1rem 0;
   color: #0070f3;
   text-align: center;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+    padding: 0.5rem 0;
+  }
 }

@@ -1,21 +1,35 @@
 .turnoInfo {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.turnoInfo h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.turnoInfo p {
+  margin: 10px 0;
+}
+
+.warning {
+  color: red;
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  .turnoInfo {
+    padding: 15px;
   }
-  
+
   .turnoInfo h2 {
-    margin-bottom: 10px;
-    font-size: 24px;
+    font-size: 20px;
   }
-  
+
   .turnoInfo p {
-    margin: 10px 0;
+    font-size: 14px;
   }
-  
-  .warning {
-    color: red;
-    font-weight: bold;
-  }
+}

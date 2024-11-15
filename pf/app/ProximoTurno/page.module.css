@@ -23,6 +23,7 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   width: 300px;
+  max-width: 90%;
 }
 
 .turnoInfo p {
@@ -30,3 +31,13 @@
   color: #333;
 }
 
+@media (max-width: 600px) {
+  .turnoInfo {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .circle {
+    margin-bottom: 20px;
+  }
+}

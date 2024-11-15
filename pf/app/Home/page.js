@@ -1,13 +1,18 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import styles from './page.module.css'; 
 import Image from 'next/image';
+import { UserContext } from '../components/UserContext'; 
 import Link from 'next/link';
+
 
 export default function Home() {
   const [showMap, setShowMap] = useState(false);
   const [buttonsVisible, setButtonsVisible] = useState(false);
+  const { user } = useContext(UserContext);
+
+ 
 
 
   const handleMapClick = () => {
@@ -21,6 +26,20 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  if (!user) {
+    return (
+      <div>
+        <p className={styles.noUserMessage}>Acceso restringido. Inicie sesión</p>
+        <button 
+          onClick={() => window.location.href = '/Login'} 
+          className={styles.loginButton}
+        >
+          Ir a Login
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.pageContainer}>
