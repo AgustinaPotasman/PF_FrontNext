@@ -21,19 +21,6 @@ export default function Informacion() {
   const token = localStorage.getItem('token');
   const { user } = useContext(UserContext);
 
-  if (!user) {
-    return (
-      <div>
-        <p className={styles.noUserMessage}>Acceso restringido. Inicie sesión</p>
-        <button 
-          onClick={() => window.location.href = '/ogin'} 
-          className={styles.loginButton}
-        >
-          Ir a Login
-        </button>
-      </div>
-    );
-  }
   
 
   useEffect(() => {
@@ -61,6 +48,20 @@ export default function Informacion() {
         }
       }
     }, 5000); 
+
+    if (!user) {
+      return (
+        <div>
+          <p className={styles.noUserMessage}>Acceso restringido. Inicie sesión</p>
+          <button 
+            onClick={() => window.location.href = '/Login'} 
+            className={styles.loginButton}
+          >
+            Ir a Login
+          </button>
+        </div>
+      );
+    }
 
     return () => clearInterval(interval);
   }, [turnoId]);

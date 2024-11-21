@@ -29,16 +29,16 @@
 
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
-    justify-content: center;
-    padding: 15px;
+    flex-direction: row; 
+    justify-content: space-between;
+    padding: 15px 10px;
   }
 
   .nav-link {
-    margin: 10px 0;
-    font-size: 14px;
+    margin: 0 10px; 
+    font-size: 14px; 
   }
-  
+
   .nav-link:hover {
     background-color: transparent;
     color: #ff4d4d;

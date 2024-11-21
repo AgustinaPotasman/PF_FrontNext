@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useState, useEffect, useContext } from 'react';
 import { useRouter } from 'next/navigation';
@@ -15,6 +15,38 @@ const PacienteAtendido = () => {
   const token = localStorage.getItem('token');
   const { user } = useContext(UserContext);
 
+  const fetchPaciente = async (idTurno) => {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` }
+    };
+    try {
+      const response = await axios.get(`http://localhost:3000/api/unTurno/${idTurno}`, config);
+      if (response.data) {
+        setPaciente(response.data);
+      } else {
+        console.error('Paciente no encontrado');
+      }
+    } catch (error) {
+      console.error('Error al obtener la información del paciente:', error);
+    }
+  };
+
+  useEffect(() => {
+    const storedIdTurno = localStorage.getItem('idTurno');
+    if (storedIdTurno) {
+      const idTurnoNumber = Number(storedIdTurno);
+      if (isNaN(idTurnoNumber)) {
+        console.error('ID Turno no es un número válido');
+      } else {
+        setIdTurno(idTurnoNumber);
+        console.log('ID Turno:', idTurnoNumber);
+        fetchPaciente(idTurnoNumber);
+      }
+    } else {
+      console.error('No se encontró ID Turno en localStorage');
+    }
+  }, []);
+
   if (!user) {
     return (
       <div>
@@ -29,49 +61,22 @@ const PacienteAtendido = () => {
     );
   }
 
-  useEffect(() => {
-    const storedIdTurno = localStorage.getItem('idTurno');
-    if (storedIdTurno) {
-      setIdTurno(Number(storedIdTurno));
-      console.log('ID Turno:', Number(storedIdTurno));
-      fetchPaciente(Number(storedIdTurno));
-    } else {
-      console.error('ID Turno es undefined');
-    }
-  }, []);
-  
-  const fetchPaciente = async (idTurno) => {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` }
-  };
-    try {
-      const response = await axios.get(`http://localhost:3000/api/unTurno/${idTurno}`, config);
-      if (response.data) {
-        setPaciente(response.data);
-      } else {
-        console.error('Paciente no encontrado');
-      }
-    } catch (error) {
-      console.error('Error al obtener la información del paciente:', error);
-    }
-  };
-
   const handleEndTurn = () => {
     setShowModal(true);
   };
 
   const handleConfirmEndTurn = async () => {
-    console.log('Confirmar fin de turno, ID Turno:', idTurno); 
+    console.log('Confirmar fin de turno, ID Turno:', idTurno);
     if (!idTurno) {
       alert('ID de turno inválido');
       return;
     }
-    
+
     try {
       const config = {
         headers: { Authorization: `Bearer ${token}` }
-    };
-      console.log(`Haciendo PUT a /api/actualizarEstadoTurno/${idTurno}`); 
+      };
+      console.log(`Haciendo PUT a /api/actualizarEstadoTurno/${idTurno}`);
       const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
         nuevoEstadoId: 3 
       }, config);
@@ -100,9 +105,9 @@ const PacienteAtendido = () => {
 
       {paciente && ( 
         <div className={styles.patientDetails}>
-          <p><strong>Nombre:</strong> {paciente.Nombre} {paciente.Apellido}</p>
-          <p><strong>Email:</strong> {paciente.Gmail}</p>
-          <p><strong>Síntomas:</strong> {paciente.Sintomas}</p>
+          <p><strong>Nombre:</strong> {user.Nombre} {user.Apellido}</p>
+          <p><strong>Email:</strong> {user.Gmail}</p>
+          <p><strong>Síntomas:</strong> {user.Sintomas}</p>
         </div>
       )}
 

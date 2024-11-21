@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useContext } from 'react';
-import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import styles from './page.module.css';
 import Boton from '../components/boton';
@@ -11,10 +10,6 @@ const PerfilMedico = () => {
   const { user, setUser } = useContext(UserContext); 
   const [data, setData] = useState([]);
   const [error, setError] = useState('');
-  const router = useRouter();
-
-
-  
 
   const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
 
@@ -60,7 +55,6 @@ const PerfilMedico = () => {
     );
   }
 
-
   if (!user.idArea) {
     return (
       <div>
@@ -80,6 +74,10 @@ const PerfilMedico = () => {
       alert('ID de turno no válido');
       return;
     }
+
+    localStorage.setItem('idTurno', idTurno);
+
+    window.location.href = '/PacienteAtendido';
   };
 
   return (
