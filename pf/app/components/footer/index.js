@@ -16,7 +16,7 @@ export default function Footer() {
                 </Link>
             </div>
             <div className={styles['nav-icon']}>
-                <Link href="/ProximoTurno">
+                <Link href="/informacion">
                     <img src="/img/tiempo.png" alt="Ícono de tiempo"/>
                 </Link>
             </div>

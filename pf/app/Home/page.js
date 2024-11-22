@@ -5,6 +5,7 @@ import styles from './page.module.css';
 import Image from 'next/image';
 import { UserContext } from '../components/UserContext'; 
 import Link from 'next/link';
+import Footer from '../components/footer';
 
 
 export default function Home() {
@@ -75,6 +76,7 @@ export default function Home() {
               </button>
             </div>
           )}
+          <Footer />
         </>
       ) : (
         <div className={styles.mapContainer}>
