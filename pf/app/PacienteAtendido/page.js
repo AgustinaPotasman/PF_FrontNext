@@ -9,11 +9,14 @@ import { UserContext } from '../components/UserContext';
 
 const PacienteAtendido = () => {
   const [showModal, setShowModal] = useState(false);
-  const [idTurno, setIdTurno] = useState(null);
   const [paciente, setPaciente] = useState(null); 
   const router = useRouter();
   const token = localStorage.getItem('token');
   const { user } = useContext(UserContext);
+
+  
+  const nombrePaciente = localStorage.getItem('nombrePaciente');
+  const idTurno = localStorage.getItem('idTurno');
 
   const fetchPaciente = async (idTurno) => {
     const config = {
@@ -32,20 +35,12 @@ const PacienteAtendido = () => {
   };
 
   useEffect(() => {
-    const storedIdTurno = localStorage.getItem('idTurno');
-    if (storedIdTurno) {
-      const idTurnoNumber = Number(storedIdTurno);
-      if (isNaN(idTurnoNumber)) {
-        console.error('ID Turno no es un número válido');
-      } else {
-        setIdTurno(idTurnoNumber);
-        console.log('ID Turno:', idTurnoNumber);
-        fetchPaciente(idTurnoNumber);
-      }
+    if (idTurno) {
+      fetchPaciente(idTurno); 
     } else {
-      console.error('No se encontró ID Turno en localStorage');
+      console.error('ID Turno no disponible');
     }
-  }, []);
+  }, [idTurno]);
 
   if (!user) {
     return (
@@ -66,7 +61,6 @@ const PacienteAtendido = () => {
   };
 
   const handleConfirmEndTurn = async () => {
-    console.log('Confirmar fin de turno, ID Turno:', idTurno);
     if (!idTurno) {
       alert('ID de turno inválido');
       return;
@@ -76,20 +70,17 @@ const PacienteAtendido = () => {
       const config = {
         headers: { Authorization: `Bearer ${token}` }
       };
-      console.log(`Haciendo PUT a /api/actualizarEstadoTurno/${idTurno}`);
       const response = await axios.put(`http://localhost:3000/api/actualizarEstadoTurno/${idTurno}`, {
         nuevoEstadoId: 3 
       }, config);
-      console.log('Respuesta:', response.data);
 
       if (response.data.success) {
         router.push('/PerfilMedico');
       } else {
-        alert('No se pudo finalizar el turno: ' + response.data.message || 'Error desconocido');
+        alert('No se pudo finalizar el turno');
       }
     } catch (error) {
       console.error('Error al finalizar el turno:', error);
-      alert('Error al finalizar el turno. Verifica la consola para más detalles. Error: ' + error.message);
     } finally {
       setShowModal(false);
     }
@@ -105,9 +96,9 @@ const PacienteAtendido = () => {
 
       {paciente && ( 
         <div className={styles.patientDetails}>
-          <p><strong>Nombre:</strong> {user.Nombre} {user.Apellido}</p>
-          <p><strong>Email:</strong> {user.Gmail}</p>
-          <p><strong>Síntomas:</strong> {user.Sintomas}</p>
+          <p><strong>Nombre:</strong> {paciente.Nombre}</p>
+          <p><strong>Email:</strong> {paciente.Gmail}</p>
+          <p><strong>Síntomas:</strong> {paciente.Sintomas}</p>
         </div>
       )}
 

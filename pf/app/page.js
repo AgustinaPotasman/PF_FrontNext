@@ -38,7 +38,7 @@ const App = ({}) => {
             
              
             <Login />
-            <button onClick={toggleLoginForm}>Registrarse</button>
+            <button onClick={toggleLoginForm}></button>
           </>
         ) : (
           <LoginForm onSwitchToLogin={switchToLogin} />

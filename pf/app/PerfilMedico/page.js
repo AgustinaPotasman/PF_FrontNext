@@ -69,12 +69,13 @@ const PerfilMedico = () => {
     );
   }
 
-  const handleCallPatient = async (patientName, idTurno) => {
+  const handleCallPatient = async (nombrePaciente, idTurno) => {
     if (!idTurno) {
       alert('ID de turno no válido');
       return;
     }
 
+    localStorage.setItem('nombrePaciente', nombrePaciente);
     localStorage.setItem('idTurno', idTurno);
 
     window.location.href = '/PacienteAtendido';
